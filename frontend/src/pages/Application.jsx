@@ -24,7 +24,7 @@ const Application = () => {
 
   const [registeredDistricts, setRegisteredDistricts] = useState([]);
   const [registeredSchools, setRegisteredSchools] = useState([]);
-  
+
   const [selectedSport, setSelectedSport] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -33,76 +33,76 @@ const Application = () => {
   }, []);
 
   const loadData = async () => {
-  try {
-    const [categoriesData, districtsData] = await Promise.all([
-      applicationService.getSportCategories(),
-      applicationService.getRegisteredDistricts()
-    ]);
-    setSportCategories(categoriesData);
-    setRegisteredDistricts(districtsData);
-  } catch (err) {
-    setError('Veriler yüklenirken bir hata oluştu');
-    console.error(err);
-  }
-};
+    try {
+      const [categoriesData, districtsData] = await Promise.all([
+        applicationService.getSportCategories(),
+        applicationService.getRegisteredDistricts()
+      ]);
+      setSportCategories(categoriesData);
+      setRegisteredDistricts(districtsData);
+    } catch (err) {
+      setError('Veriler yüklenirken bir hata oluştu');
+      console.error(err);
+    }
+  };
 
-const handleInputChange = async (e) => {
-  const { name, value } = e.target;
-  
-  if (name.startsWith('school.')) {
-    const field = name.split('.')[1];
-    setFormData(prev => ({
-      ...prev,
-      school: {
-        ...prev.school,
-        [field]: value
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+
+    if (name.startsWith('school.')) {
+      const field = name.split('.')[1];
+      setFormData(prev => ({
+        ...prev,
+        school: {
+          ...prev.school,
+          [field]: value
+        }
+      }));
+
+      // Yaka seçildiğinde ilçeleri yükle
+      if (field === 'side' && value) {
+        try {
+          const districts = await applicationService.getDistrictsBySide(value);
+          setRegisteredDistricts(districts);
+          // Önceki seçimleri sıfırla
+          setFormData(prev => ({
+            ...prev,
+            school: {
+              ...prev.school,
+              district: '',
+              name: ''
+            }
+          }));
+          setRegisteredSchools([]);
+        } catch (err) {
+          console.error('İlçeler yüklenirken hata:', err);
+        }
       }
-    }));
-    
-    // Yaka seçildiğinde ilçeleri yükle
-    if (field === 'side' && value) {
-      try {
-        const districts = await applicationService.getDistrictsBySide(value);
-        setRegisteredDistricts(districts);
-        // Önceki seçimleri sıfırla
-        setFormData(prev => ({
-          ...prev,
-          school: {
-            ...prev.school,
-            district: '',
-            name: ''
-          }
-        }));
-        setRegisteredSchools([]);
-      } catch (err) {
-        console.error('İlçeler yüklenirken hata:', err);
+
+      // İlçe seçildiğinde okulları yükle
+      if (field === 'district' && value) {
+        try {
+          const schools = await applicationService.getSchoolsByDistrict(value);
+          setRegisteredSchools(schools);
+          // Okul seçimini sıfırla
+          setFormData(prev => ({
+            ...prev,
+            school: {
+              ...prev.school,
+              name: ''
+            }
+          }));
+        } catch (err) {
+          console.error('Okullar yüklenirken hata:', err);
+        }
       }
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
     }
-    
-    // İlçe seçildiğinde okulları yükle
-    if (field === 'district' && value) {
-      try {
-        const schools = await applicationService.getSchoolsByDistrict(value);
-        setRegisteredSchools(schools);
-        // Okul seçimini sıfırla
-        setFormData(prev => ({
-          ...prev,
-          school: {
-            ...prev.school,
-            name: ''
-          }
-        }));
-      } catch (err) {
-        console.error('Okullar yüklenirken hata:', err);
-      }
-    }
-  } else {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  }
-};
+  };
 
   const addCategory = () => {
     if (!selectedSport || !selectedCategory) {
@@ -150,8 +150,8 @@ const handleInputChange = async (e) => {
     setLoading(true);
 
     // Validasyon
-    if (!formData.school.name || !formData.school.district || 
-        !formData.school.side || !formData.school.type) {
+    if (!formData.school.name || !formData.school.district ||
+      !formData.school.side || !formData.school.type) {
       setError('Lütfen tüm okul bilgilerini doldurun');
       setLoading(false);
       return;
@@ -172,10 +172,10 @@ const handleInputChange = async (e) => {
     try {
       await applicationService.createApplication(formData);
       setSuccess(true);
-      
+
       // Sayfayı en üste scroll et
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      
+
       // Formu sıfırla
       setFormData({
         school: { name: '', district: '', side: '', type: '' },
@@ -219,23 +219,23 @@ const handleInputChange = async (e) => {
             <div className="flex-1">
               <h3 className="text-base sm:text-lg font-semibold text-blue-900 mb-2">Önemli Bilgilendirme</h3>
               <p className="text-sm sm:text-base text-blue-800 mb-3">
-                - Başvurunuzu tamamladıktan sonra herhangi bir güncelleme veya değişiklik yapmak isterseniz, 
+                - Başvurunuzu tamamladıktan sonra herhangi bir güncelleme veya değişiklik yapmak isterseniz,
                 lütfen bizimle iletişime geçin.
               </p>
 
-               <p className="text-sm sm:text-base text-red-800 mb-3">
+              <p className="text-sm sm:text-base text-red-800 mb-3">
                 - Başvuru formu yalnızca sorumlu hocamız tarafından doldurulmalıdır. Öğrencilerin bireysel başvuru yapmaları kesinlikle yasaktır.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 text-sm sm:text-base">
-                <a 
-                  href="tel:+905309159293" 
+                <a
+                  href="tel:+905309159293"
                   className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
                 >
                   <FaPhone className="text-sm" />
                   <span>0530 915 92 93</span>
                 </a>
-                <a 
-                  href="mailto:oncugeclikvespor@gmail.com" 
+                <a
+                  href="mailto:oncugeclikvespor@gmail.com"
                   className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -288,130 +288,73 @@ const handleInputChange = async (e) => {
               <div className="w-1 h-6 sm:h-8 bg-red-500 rounded-full"></div>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Okul Bilgileri</h2>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-             
+
 
               <div>
-  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-    Yaka <span className="text-red-500">*</span>
-  </label>
-  <select
-    name="school.side"
-    value={formData.school.side}
-    onChange={handleInputChange}
-    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-    required
-  >
-    <option value="">Seçiniz</option>
-    <option value="Anadolu">Anadolu Yakası</option>
-    <option value="Avrupa">Avrupa Yakası</option>
-  </select>
-</div>
+                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+                  Yaka <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="school.side"
+                  value={formData.school.side}
+                  onChange={handleInputChange}
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  required
+                >
+                  <option value="">Seçiniz</option>
+                  <option value="Anadolu">Anadolu Yakası</option>
+                  <option value="Avrupa">Avrupa Yakası</option>
+                </select>
+              </div>
 
-{/* İlçe */}
-<div>
-  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-    İlçe <span className="text-red-500">*</span>
-  </label>
-  <select
-    name="school.district"
-    value={formData.school.district}
-    onChange={handleInputChange}
-    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
-    required
-    disabled={!formData.school.side}
-  >
-    <option value="">{formData.school.side ? 'İlçe Seçin' : 'Önce yaka seçin'}</option>
-    {registeredDistricts.map(district => (
-      <option key={district} value={district}>{district}</option>
-    ))}
-  </select>
-</div>
+              {/* İlçe */}
+              <div>
+                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+                  İlçe <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="school.district"
+                  value={formData.school.district}
+                  onChange={handleInputChange}
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
+                  required
+                  disabled={!formData.school.side}
+                >
+                  <option value="">{formData.school.side ? 'İlçe Seçin' : 'Önce yaka seçin'}</option>
+                  {registeredDistricts.map(district => (
+                    <option key={district} value={district}>{district}</option>
+                  ))}
+                </select>
+              </div>
 
-{/* Okul */}
-<div className="sm:col-span-2">
-  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-    Okul Adı <span className="text-red-500">*</span>
-  </label>
-  <select
-    name="school.name"
-    value={formData.school.name}
-    onChange={handleInputChange}
-    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
-    required
-    disabled={!formData.school.district}
-  >
-    <option value="">{formData.school.district ? 'Okul Seçin' : 'Önce ilçe seçin'}</option>
-    {registeredSchools.map(school => (
-      <option key={school} value={school}>{school}</option>
-    ))}
-  </select>
-  {registeredSchools.length > 0 && (
-    <p className="text-xs text-gray-500 mt-1">
-      {registeredSchools.length} okul listelendi
-    </p>
-  )}
-</div>
+              {/* Okul */}
+              <div className="sm:col-span-2">
+                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+                  Okul Adı <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="school.name"
+                  value={formData.school.name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
+                  required
+                  disabled={!formData.school.district}
+                >
+                  <option value="">{formData.school.district ? 'Okul Seçin' : 'Önce ilçe seçin'}</option>
+                  {registeredSchools.map(school => (
+                    <option key={school} value={school}>{school}</option>
+                  ))}
+                </select>
+                {registeredSchools.length > 0 && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    {registeredSchools.length} okul listelendi
+                  </p>
+                )}
+              </div>
 
-{/* Okul Tipi */}
-<div className="sm:col-span-2">
-  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-    Okul Tipi <span className="text-red-500">*</span>
-  </label>
-  <select
-    name="school.type"
-    value={formData.school.type}
-    onChange={handleInputChange}
-    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-    required
-  >
-    <option value="">Seçiniz</option>
-    <option value="Orta">Ortaokul</option>
-    <option value="Lise">Lise</option>
-  </select>
-</div>
-
-             <div>
-  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-    İlçe <span className="text-red-500">*</span>
-  </label>
-  <select
-    name="school.district"
-    value={formData.school.district}
-    onChange={handleInputChange}
-    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-    required
-  >
-    <option value="">İlçe Seçin</option>
-    {registeredDistricts.map(district => (
-      <option key={district} value={district}>{district}</option>
-    ))}
-  </select>
-</div>
-
-<div className="sm:col-span-2">
-  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-    Okul Adı <span className="text-red-500">*</span>
-  </label>
-  <select
-    name="school.name"
-    value={formData.school.name}
-    onChange={handleInputChange}
-    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
-    required
-    disabled={!formData.school.district}
-  >
-    <option value="">{formData.school.district ? 'Okul Seçin' : 'Önce ilçe seçin'}</option>
-    {registeredSchools.map(school => (
-      <option key={school} value={school}>{school}</option>
-    ))}
-  </select>
-  <p className="text-xs text-gray-500 mt-1">
-    {registeredSchools.length > 0 && `${registeredSchools.length} okul listelendi`}
-  </p>
-</div>
-
+              {/* Okul Tipi */}
               <div className="sm:col-span-2">
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
                   Okul Tipi <span className="text-red-500">*</span>
@@ -420,7 +363,7 @@ const handleInputChange = async (e) => {
                   name="school.type"
                   value={formData.school.type}
                   onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   required
                 >
                   <option value="">Seçiniz</option>
@@ -428,6 +371,10 @@ const handleInputChange = async (e) => {
                   <option value="Lise">Lise</option>
                 </select>
               </div>
+
+            
+             
+            
             </div>
           </div>
 
@@ -437,7 +384,7 @@ const handleInputChange = async (e) => {
               <div className="w-1 h-6 sm:h-8 bg-red-500 rounded-full"></div>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Öğretmen Bilgileri</h2>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
@@ -480,7 +427,7 @@ const handleInputChange = async (e) => {
                 Katılmak İstediğiniz Branşlar <span className="text-red-500">*</span>
               </h2>
             </div>
-            
+
             <div className="space-y-4">
               <div className="grid grid-cols-1 gap-4">
                 <div>
