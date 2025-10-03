@@ -11,6 +11,8 @@ dotenv.config({ path: './src/config/.env' });
 const photoRoutes = require('./routes/photoRoutes');
 const adminRoutes = require('./routes/adminRoutes'); 
 const tournamentRoutes = require('./routes/tournamentRoutes'); 
+const applicationRoutes = require('./routes/applicationRoutes'); 
+
 
 
 // Initialize app
@@ -67,6 +69,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api', photoRoutes);
 app.use('/admin', adminRoutes); 
 app.use('/api', tournamentRoutes);
+app.use('/api', applicationRoutes); 
+
 
 // Server setup
 const PORT = process.env.PORT || 8561;
