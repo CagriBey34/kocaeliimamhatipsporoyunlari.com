@@ -57,5 +57,24 @@ export const applicationService = {
     } catch (error) {
       throw error.response?.data || error.message;
     }
+  },
+
+  getRegisteredDistricts: async () => {
+  try {
+    const response = await api.get('/registered-districts');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
   }
+},
+
+// İlçeye göre kayıtlı okulları getir
+getSchoolsByDistrict: async (district) => {
+  try {
+    const response = await api.get(`/registered-schools?district=${district}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+}
 };

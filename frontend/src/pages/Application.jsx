@@ -21,6 +21,9 @@ const Application = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  const [registeredDistricts, setRegisteredDistricts] = useState([]);
+  const [registeredSchools, setRegisteredSchools] = useState([]);
   
   const [selectedSport, setSelectedSport] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -30,38 +33,49 @@ const Application = () => {
   }, []);
 
   const loadData = async () => {
-    try {
-      const [categoriesData, districtsData] = await Promise.all([
-        applicationService.getSportCategories(),
-        applicationService.getDistricts()
-      ]);
-      setSportCategories(categoriesData);
-      setDistricts(districtsData);
-    } catch (err) {
-      setError('Veriler yüklenirken bir hata oluştu');
-      console.error(err);
-    }
-  };
+  try {
+    const [categoriesData, districtsData] = await Promise.all([
+      applicationService.getSportCategories(),
+      applicationService.getRegisteredDistricts()
+    ]);
+    setSportCategories(categoriesData);
+    setRegisteredDistricts(districtsData);
+  } catch (err) {
+    setError('Veriler yüklenirken bir hata oluştu');
+    console.error(err);
+  }
+};
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = async (e) => {
+  const { name, value } = e.target;
+  
+  if (name.startsWith('school.')) {
+    const field = name.split('.')[1];
+    setFormData(prev => ({
+      ...prev,
+      school: {
+        ...prev.school,
+        [field]: value
+      }
+    }));
     
-    if (name.startsWith('school.')) {
-      const field = name.split('.')[1];
-      setFormData(prev => ({
-        ...prev,
-        school: {
-          ...prev.school,
-          [field]: value
-        }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+    // İlçe seçildiğinde okulları yükle
+    if (field === 'district' && value) {
+      try {
+        const schools = await applicationService.getSchoolsByDistrict(value);
+        setRegisteredSchools(schools);
+      } catch (err) {
+        console.error('Okullar yüklenirken hata:', err);
+        setRegisteredSchools([]);
+      }
     }
-  };
+  } else {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+};
 
   const addCategory = () => {
     if (!selectedSport || !selectedCategory) {
@@ -178,8 +192,12 @@ const Application = () => {
             <div className="flex-1">
               <h3 className="text-base sm:text-lg font-semibold text-blue-900 mb-2">Önemli Bilgilendirme</h3>
               <p className="text-sm sm:text-base text-blue-800 mb-3">
-                Başvurunuzu tamamladıktan sonra herhangi bir güncelleme veya değişiklik yapmak isterseniz, 
+                - Başvurunuzu tamamladıktan sonra herhangi bir güncelleme veya değişiklik yapmak isterseniz, 
                 lütfen bizimle iletişime geçin.
+              </p>
+
+               <p className="text-sm sm:text-base text-red-800 mb-3">
+                - Başvuru formu yalnızca sorumlu hocamız tarafından doldurulmalıdır. Öğrencilerin bireysel başvuru yapmaları kesinlikle yasaktır.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 text-sm sm:text-base">
                 <a 
@@ -245,20 +263,7 @@ const Application = () => {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <div className="sm:col-span-2">
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Okul Adı <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="school.name"
-                  value={formData.school.name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="Örn: Anadolu İmam Hatip Lisesi"
-                  required
-                />
-              </div>
+             
 
               <div>
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
@@ -277,24 +282,45 @@ const Application = () => {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  İlçe <span className="text-red-500">*</span>
-                </label>
-                <select
-                  name="school.district"
-                  value={formData.school.district}
-                  onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all disabled:bg-gray-100"
-                  required
-                  disabled={!formData.school.side}
-                >
-                  <option value="">{formData.school.side ? 'Seçiniz' : 'Önce yaka seçin'}</option>
-                  {formData.school.side && districts[formData.school.side]?.map(district => (
-                    <option key={district} value={district}>{district}</option>
-                  ))}
-                </select>
-              </div>
+             <div>
+  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+    İlçe <span className="text-red-500">*</span>
+  </label>
+  <select
+    name="school.district"
+    value={formData.school.district}
+    onChange={handleInputChange}
+    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+    required
+  >
+    <option value="">İlçe Seçin</option>
+    {registeredDistricts.map(district => (
+      <option key={district} value={district}>{district}</option>
+    ))}
+  </select>
+</div>
+
+<div className="sm:col-span-2">
+  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+    Okul Adı <span className="text-red-500">*</span>
+  </label>
+  <select
+    name="school.name"
+    value={formData.school.name}
+    onChange={handleInputChange}
+    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
+    required
+    disabled={!formData.school.district}
+  >
+    <option value="">{formData.school.district ? 'Okul Seçin' : 'Önce ilçe seçin'}</option>
+    {registeredSchools.map(school => (
+      <option key={school} value={school}>{school}</option>
+    ))}
+  </select>
+  <p className="text-xs text-gray-500 mt-1">
+    {registeredSchools.length > 0 && `${registeredSchools.length} okul listelendi`}
+  </p>
+</div>
 
               <div className="sm:col-span-2">
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
