@@ -8,6 +8,8 @@ import Gallery from './pages/Gallery';
 import Awards from './pages/awards/DerecePage';
 import Instructions from './pages/Instructions';
 import Tournament from './pages/Tournament'; 
+import Applicaion from './pages/Application'; 
+
 
 
 // Admin sayfaları
@@ -16,6 +18,8 @@ import Dashboard from './admin/pages/Dashboard';
 import PhotosPage from './admin/pages/PhotosPage';
 import UploadPhotos from './admin/pages/UploadPhotos';
 import TournamentManagement from './admin/pages/TournamentManagement';
+import ApplicationsPage from './admin/pages/ApplicationsPage';
+
 
 
 // Layouts
@@ -35,15 +39,16 @@ const AppRoutes = () => {
         <Route path="/instructions" element={<Instructions />} />
         <Route path="/turnuva" element={<Tournament />} />
         <Route path="/turnuva-final-asamasi" element={<TournamentFinal />} />
+        <Route path="/basvuru" element={<Applicaion />} />
       </Route>
       
-      {/* Admin sayfaları - AdminLayout ile */}
       <Route element={<AdminLayout />}>
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/photos" element={<PhotosPage />} />
         <Route path="/admin/upload" element={<UploadPhotos />} />
         <Route path="/admin/tournaments" element={<TournamentManagement />} /> 
+        <Route path="/admin/applications" element={<ApplicationsPage />} /> 
         <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
         <Route path="/admin/*" element={<Navigate to="/admin/dashboard" />} />
       </Route>

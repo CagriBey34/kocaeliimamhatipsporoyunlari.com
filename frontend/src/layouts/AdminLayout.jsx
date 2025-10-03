@@ -18,9 +18,6 @@ const AdminLayout = () => {
       <main className="flex-grow p-4">
         <Outlet />
       </main>
-      <footer className="py-4 bg-white text-center border-t text-gray-500 text-sm">
-        <p>© {new Date().getFullYear()} İmam Hatip Spor Oyunları - Admin Paneli</p>
-      </footer>
     </div>
   );
 };

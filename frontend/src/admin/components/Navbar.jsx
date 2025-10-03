@@ -1,52 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
+    // sessionStorage'dan 'isLoggedIn' anahtarını kaldır
     sessionStorage.removeItem('isLoggedIn');
+    // Kullanıcıyı giriş sayfasına yönlendir
     navigate('/admin/login');
   };
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link to="/admin/dashboard" className="text-xl font-bold text-red-500">
-              İMAM HATİP SPOR OYUNLARI
+    // Arka planı koyu bir renge çevirip (bg-gray-800) ve kenarlığı kaldırıldı.
+    <nav className="">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* justify-center ile içeriği yatayda ortala */}
+        {/* flex-1 div'i ile logo ve çıkış butonunu ortada yan yana grupla */}
+        <div className="flex justify-center items-center h-16">
+          <div className="flex items-center space-x-8"> 
+            {/* Logo */}
+            <Link 
+              to="/admin/dashboard" 
+              // Yazı rengini arka plana uyacak şekilde beyaza (text-white) ve hover rengini kırmızıya çevirdik
+              className="text-lg sm:text-xl font-bold text-black hover:text-red-400 transition-colors"
+            >
+              Yönetim Paneli
             </Link>
-          </div>
-          <div className="hidden md:flex items-center space-x-4">
+
+            {/* Logout Button */}
             <button 
               onClick={handleLogout}
-              className="text-red-500 hover:text-red-700 px-3 py-2"
+              // Yazı rengini beyaza (text-white) ve hover arka planını kırmızıya çevirdik
+              className="flex items-center gap-2 px-4 py-2 text-black hover:text-red-400 hover:bg-gray-700 rounded-lg transition-all"
             >
-              Çıkış Yap
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Çıkış</span>
             </button>
           </div>
-          {/* Mobil Menü Aç/Kapat */}
-          <button 
-            className="md:hidden text-gray-600"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
         </div>
-        {/* Mobil Menü */}
-        {menuOpen && (
-          <div className="md:hidden flex flex-col space-y-2 mt-2 p-4 bg-gray-100 rounded-lg shadow-md">
-            <button 
-              onClick={handleLogout}
-              className="text-red-500 hover:text-red-700 px-3 py-2"
-            >
-              Çıkış Yap
-            </button>
-          </div>
-        )}
       </div>
     </nav>
   );
