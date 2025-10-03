@@ -11,7 +11,7 @@ exports.getSportCategories = async (req, res) => {
       "Mangala": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
       "Bilek Güreşi": ["Küçük Erkek", "Yıldız Erkek", "Genç Erkek"],
       "Dart": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
-      "Karate": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
+      "Karate": ["Yıldız Erkek", "Yıldız Kız"],
       "Voleybol": ["Yıldız Kız", "Genç Kız"],
       "Geleneksel Türk Okçuluğu": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
       "Atletizm": ["Küçük Erkek", "Yıldız Erkek", "Genç Erkek"],
