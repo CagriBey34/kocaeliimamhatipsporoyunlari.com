@@ -16,5 +16,7 @@ router.get('/schools', applicationController.getAllSchools);
 
 router.get('/registered-districts', schoolController.getRegisteredDistricts);
 router.get('/registered-schools', schoolController.getSchoolsByDistrict);
+router.get('/districts-by-side', schoolController.getDistrictsBySide);
+
 
 module.exports = router;

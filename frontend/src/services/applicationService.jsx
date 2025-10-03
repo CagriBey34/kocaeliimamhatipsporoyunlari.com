@@ -76,5 +76,13 @@ getSchoolsByDistrict: async (district) => {
   } catch (error) {
     throw error.response?.data || error.message;
   }
+}, 
+getDistrictsBySide: async (side) => {
+  try {
+    const response = await api.get(`/districts-by-side?side=${side}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
 }
 };

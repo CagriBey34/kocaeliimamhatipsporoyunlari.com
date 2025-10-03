@@ -46,7 +46,7 @@ const Application = () => {
   }
 };
 
-  const handleInputChange = async (e) => {
+const handleInputChange = async (e) => {
   const { name, value } = e.target;
   
   if (name.startsWith('school.')) {
@@ -59,14 +59,41 @@ const Application = () => {
       }
     }));
     
+    // Yaka seçildiğinde ilçeleri yükle
+    if (field === 'side' && value) {
+      try {
+        const districts = await applicationService.getDistrictsBySide(value);
+        setRegisteredDistricts(districts);
+        // Önceki seçimleri sıfırla
+        setFormData(prev => ({
+          ...prev,
+          school: {
+            ...prev.school,
+            district: '',
+            name: ''
+          }
+        }));
+        setRegisteredSchools([]);
+      } catch (err) {
+        console.error('İlçeler yüklenirken hata:', err);
+      }
+    }
+    
     // İlçe seçildiğinde okulları yükle
     if (field === 'district' && value) {
       try {
         const schools = await applicationService.getSchoolsByDistrict(value);
         setRegisteredSchools(schools);
+        // Okul seçimini sıfırla
+        setFormData(prev => ({
+          ...prev,
+          school: {
+            ...prev.school,
+            name: ''
+          }
+        }));
       } catch (err) {
         console.error('Okullar yüklenirken hata:', err);
-        setRegisteredSchools([]);
       }
     }
   } else {
@@ -266,21 +293,84 @@ const Application = () => {
              
 
               <div>
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Yaka <span className="text-red-500">*</span>
-                </label>
-                <select
-                  name="school.side"
-                  value={formData.school.side}
-                  onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  required
-                >
-                  <option value="">Seçiniz</option>
-                  <option value="Anadolu">Anadolu Yakası</option>
-                  <option value="Avrupa">Avrupa Yakası</option>
-                </select>
-              </div>
+  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+    Yaka <span className="text-red-500">*</span>
+  </label>
+  <select
+    name="school.side"
+    value={formData.school.side}
+    onChange={handleInputChange}
+    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+    required
+  >
+    <option value="">Seçiniz</option>
+    <option value="Anadolu">Anadolu Yakası</option>
+    <option value="Avrupa">Avrupa Yakası</option>
+  </select>
+</div>
+
+{/* İlçe */}
+<div>
+  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+    İlçe <span className="text-red-500">*</span>
+  </label>
+  <select
+    name="school.district"
+    value={formData.school.district}
+    onChange={handleInputChange}
+    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
+    required
+    disabled={!formData.school.side}
+  >
+    <option value="">{formData.school.side ? 'İlçe Seçin' : 'Önce yaka seçin'}</option>
+    {registeredDistricts.map(district => (
+      <option key={district} value={district}>{district}</option>
+    ))}
+  </select>
+</div>
+
+{/* Okul */}
+<div className="sm:col-span-2">
+  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+    Okul Adı <span className="text-red-500">*</span>
+  </label>
+  <select
+    name="school.name"
+    value={formData.school.name}
+    onChange={handleInputChange}
+    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
+    required
+    disabled={!formData.school.district}
+  >
+    <option value="">{formData.school.district ? 'Okul Seçin' : 'Önce ilçe seçin'}</option>
+    {registeredSchools.map(school => (
+      <option key={school} value={school}>{school}</option>
+    ))}
+  </select>
+  {registeredSchools.length > 0 && (
+    <p className="text-xs text-gray-500 mt-1">
+      {registeredSchools.length} okul listelendi
+    </p>
+  )}
+</div>
+
+{/* Okul Tipi */}
+<div className="sm:col-span-2">
+  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
+    Okul Tipi <span className="text-red-500">*</span>
+  </label>
+  <select
+    name="school.type"
+    value={formData.school.type}
+    onChange={handleInputChange}
+    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+    required
+  >
+    <option value="">Seçiniz</option>
+    <option value="Orta">Ortaokul</option>
+    <option value="Lise">Lise</option>
+  </select>
+</div>
 
              <div>
   <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
