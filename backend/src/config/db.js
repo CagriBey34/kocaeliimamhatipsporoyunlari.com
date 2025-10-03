@@ -12,9 +12,9 @@ console.log('🔧 DB Bağlantı Ayarları:', {
 // MySQL bağlantı havuzu oluşturma
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT) || 3306,  
+  port: parseInt(process.env.DB_PORT) || 3306,  
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '123456',
+  password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'spor_galeri',
   waitForConnections: true,
   connectionLimit: 10,
