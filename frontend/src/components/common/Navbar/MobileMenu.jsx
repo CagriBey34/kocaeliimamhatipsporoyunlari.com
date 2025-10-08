@@ -60,7 +60,7 @@ const MobileMenu = () => {
     {
       icon: <UserPlus strokeWidth={1.5} />,
       text: 'Kayıt Ol',
-      to: '/register'
+      to: '/basvuru'
     },
     {
       icon: <Mail strokeWidth={1.5} />,

@@ -19,6 +19,7 @@ const WebHeader = () => {
     { name: 'Talimatname', path: '/instructions' },
     { name: 'Turnuva', path: '/turnuva' },
     { name: 'Derece', path: '/dereceye-girenler' },
+        { name: 'Başvuru', path: '/basvuru' }
   ];
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const WebHeader = () => {
                   <li key={link.name} className="mr-2">
                     <Link
                       to={link.path}
-                      className={`text-white text-sm font-medium py-1 px-2 border-b-2 transition-all duration-200 ${
+                      className={`text-white text-sm font-medium py-1 px-2  ${
                         activeLink === link.name
                           ? 'border-white'
                           : 'border-transparent hover:border-white/50'
@@ -87,7 +88,7 @@ const WebHeader = () => {
                   <li key={link.name} className="ml-2">
                     <Link
                       to={link.path}
-                      className={`text-white text-sm font-medium py-1 px-2 border-b-2 transition-all duration-200 ${
+                      className={`text-white text-sm font-medium py-1 px-2  ${
                         activeLink === link.name
                           ? 'border-white'
                           : 'border-transparent hover:border-white/50'
