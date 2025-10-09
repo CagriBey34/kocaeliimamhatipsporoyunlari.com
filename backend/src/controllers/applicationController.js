@@ -18,7 +18,9 @@ exports.getSportCategories = async (req, res) => {
       "3+3 Basketbol": ["Yıldız Erkek", "Genç Erkek"],
       "Bocce": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
       "Futsal": ["Yıldız Erkek", "Genç Erkek"],
-      "Güreş": ["Genç Erkek"]
+      "Güreş": ["Genç Erkek"],
+      "Ayak Tenisi": ["Yıldız Erkek", "Genç Erkek"],
+      "Modern Okçuluk Klasik Yay": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"]
     };
     
     res.json(categories);
