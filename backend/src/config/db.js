@@ -1,6 +1,6 @@
 // src/config/db.js
 const mysql = require('mysql2/promise');
-require('dotenv').config(); // Path kaldırıldı, root'taki .env'i bulur
+require('dotenv').config(); 
 
 console.log('🔧 DB Bağlantı Ayarları:', {
   host: process.env.DB_HOST,
