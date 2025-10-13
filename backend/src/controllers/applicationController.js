@@ -87,6 +87,20 @@ exports.createApplication = async (req, res) => {
     
     if (existingSchools.length > 0) {
       schoolId = existingSchools[0].id;
+      
+      // 🔴 YENİ KONTROL: Bu okul daha önce başvuru yapmış mı?
+      const [existingApplications] = await connection.query(
+        'SELECT id FROM applications WHERE school_id = ?',
+        [schoolId]
+      );
+      
+      if (existingApplications.length > 0) {
+        await connection.rollback();
+        return res.status(400).json({ 
+          error: 'Bu okul daha önce başvuru yapmıştır. Her okul sadece bir kez başvuru yapabilir.',
+          existing_application_id: existingApplications[0].id
+        });
+      }
     } else {
       const [schoolResult] = await connection.query(
         'INSERT INTO schools (name, district, side, type) VALUES (?, ?, ?, ?)',
