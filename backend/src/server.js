@@ -12,6 +12,7 @@ const photoRoutes = require('./routes/photoRoutes');
 const adminRoutes = require('./routes/adminRoutes'); 
 const tournamentRoutes = require('./routes/tournamentRoutes'); 
 const applicationRoutes = require('./routes/applicationRoutes'); 
+const studentRoutes = require('./routes/studentRoutes');
 
 
 
@@ -70,6 +71,9 @@ app.use('/api', photoRoutes);
 app.use('/admin', adminRoutes); 
 app.use('/api', tournamentRoutes);
 app.use('/api', applicationRoutes); 
+app.use('/api/students', studentRoutes);  
+
+
 
 
 // Server setup

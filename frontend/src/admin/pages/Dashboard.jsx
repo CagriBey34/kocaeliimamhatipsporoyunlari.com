@@ -46,6 +46,15 @@ const Dashboard = () => {
       gradient: 'from-orange-500 to-orange-600',
       iconBg: 'bg-orange-100',
       iconColor: 'text-orange-600'
+    },
+    {
+      to: '/admin/students',
+      icon: FileText,
+      title: 'Öğrenci Bilgileri',
+      description: 'Öğrenci Bilgilerini inceleyin ve yönetin',
+      gradient: 'from-red-500 to-red-600',
+      iconBg: 'bg-red-100',
+      iconColor: 'text-red-600'
     }
   ];
 

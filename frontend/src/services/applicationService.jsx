@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:8561/api';
@@ -8,8 +7,23 @@ const api = axios.create({
   withCredentials: true
 });
 
+// Response interceptor - 401 hatalarını yakala
+api.interceptors.response.use(
+  response => response,
+  async error => {
+    if (error.response && error.response.status === 401) {
+      console.log('Yetkisiz erişim hatası. Oturum kontrolü yapılıyor.');
+      sessionStorage.removeItem('isLoggedIn');
+      window.location.href = '/admin/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const applicationService = {
-  // Branş ve kategorileri getir
+  /**
+   * Branş ve kategorileri getir
+   */
   getSportCategories: async () => {
     try {
       const response = await api.get('/sport-categories');
@@ -19,7 +33,9 @@ export const applicationService = {
     }
   },
 
-  // İlçeleri getir
+  /**
+   * İlçeleri getir
+   */
   getDistricts: async () => {
     try {
       const response = await api.get('/districts');
@@ -29,7 +45,9 @@ export const applicationService = {
     }
   },
 
-  // Yeni başvuru oluştur
+  /**
+   * Yeni başvuru oluştur
+   */
   createApplication: async (applicationData) => {
     try {
       const response = await api.post('/applications', applicationData);
@@ -39,7 +57,9 @@ export const applicationService = {
     }
   },
 
-  // Tüm başvuruları getir (admin için)
+  /**
+   * Tüm başvuruları getir (admin için)
+   */
   getAllApplications: async () => {
     try {
       const response = await api.get('/applications');
@@ -49,7 +69,9 @@ export const applicationService = {
     }
   },
 
-  // Tek başvuru detayı
+  /**
+   * Tek başvuru detayı
+   */
   getApplicationById: async (id) => {
     try {
       const response = await api.get(`/applications/${id}`);
@@ -59,30 +81,43 @@ export const applicationService = {
     }
   },
 
+  /**
+   * Tüm kayıtlı ilçeleri getir
+   */
   getRegisteredDistricts: async () => {
-  try {
-    const response = await api.get('/registered-districts');
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || error.message;
-  }
-},
+    try {
+      const response = await api.get('/registered-districts');
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
 
-// İlçeye göre kayıtlı okulları getir
-getSchoolsByDistrict: async (district) => {
-  try {
-    const response = await api.get(`/registered-schools?district=${district}`);
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || error.message;
+  /**
+   * Yakaya göre ilçeleri getir
+   * @param {string} side - Yaka (Anadolu/Avrupa)
+   */
+  getDistrictsBySide: async (side) => {
+    try {
+      const response = await api.get(`/districts-by-side?side=${side}`);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  /**
+   * İlçeye göre kayıtlı okulları getir
+   * @param {string} district - İlçe adı
+   */
+  getSchoolsByDistrict: async (district) => {
+    try {
+      const response = await api.get(`/registered-schools?district=${district}`);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
   }
-}, 
-getDistrictsBySide: async (side) => {
-  try {
-    const response = await api.get(`/districts-by-side?side=${side}`);
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || error.message;
-  }
-}
 };
+
+export default applicationService;
