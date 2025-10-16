@@ -758,7 +758,7 @@ const StudentRegistration = () => {
                         value={currentStudent.registration_number}
                         onChange={(e) => setCurrentStudent({...currentStudent, registration_number: e.target.value})}
                         className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                        placeholder="TKD2024XXX"
+                        placeholder="34-TKD-6025"
                       />
                     </div>
                   )}
