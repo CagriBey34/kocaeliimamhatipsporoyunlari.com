@@ -9,22 +9,22 @@ exports.getSportConfigurations = async (req, res) => {
         categories: {
           "Yıldız Kız": {
             birthYears: [2011, 2012, 2013],
-            weights: ["29", "33", "37", "41", "44", "47", "51", "55", "59"],
+            weights: ["29", "33", "37", "41", "44", "47", "51", "55", "59+"],
             requiresRegistration: true
           },
           "Yıldız Erkek": {
             birthYears: [2011, 2012, 2013],
-            weights: ["33", "37", "41", "45", "49", "53", "57", "61", "65"],
+            weights: ["33", "37", "41", "45", "49", "53", "57", "61", "65+"],
             requiresRegistration: true
           },
           "Genç Kız": {
             birthYears: [2008, 2009, 2010],
-            weights: ["42", "44", "46", "49", "52", "55", "59", "63", "68"],
+            weights: ["42", "44", "46", "49", "52", "55", "59", "63", "68+"],
             requiresRegistration: true
           },
           "Genç Erkek": {
             birthYears: [2008, 2009, 2010],
-            weights: ["45", "48", "51", "55", "59", "63", "68", "73", "78"],
+            weights: ["45", "48", "51", "55", "59", "63", "68", "73", "78+"],
             requiresRegistration: true
           }
         }
