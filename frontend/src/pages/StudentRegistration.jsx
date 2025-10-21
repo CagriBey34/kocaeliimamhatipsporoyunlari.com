@@ -601,14 +601,14 @@ const StudentRegistration = () => {
                 >
                   Geri
                 </button>
-                <button
+               <button
                   type="button"
                   onClick={() => {
                     if (!formData.age_category) {
                       toast.warning('Lütfen kategori seçin');
                       return;
                     }
-                    setStep(hasWeights() ? 5 : 6);
+                    setStep(5);
                   }}
                   className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold shadow-md hover:shadow-lg"
                 >
