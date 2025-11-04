@@ -10,8 +10,8 @@ const Slider = () => {
     {
       web_image: '/assets/banner.jpeg',
       mobile_image: '/assets/banner.jpeg',
-      title: 'Slider Başlık 1',
-      link: '#link1'
+      title: 'İmam Hatip Spor Oyunları',
+      link: 'https://imamhatipsporoyunlari.com/basvuru'
     }
   ];
 
