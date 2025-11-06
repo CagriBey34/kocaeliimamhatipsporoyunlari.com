@@ -7,7 +7,7 @@ const VideoPreview = () => {
         href="https://www.instagram.com/p/C8Cij8wCXsV/"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center"
+        className="flex items-center justify-centen"
       >
         <img
           src="assets/video.jpg"
