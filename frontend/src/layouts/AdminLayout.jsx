@@ -1,7 +1,6 @@
 // src/layouts/AdminLayout.jsx
 import React from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import AdminNavbar from '../admin/components/Navbar';
 
 const AdminLayout = () => {
   const isAuthenticated = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -14,7 +13,6 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {isAuthenticated && <AdminNavbar />}
       <main className="flex-grow p-4">
         <Outlet />
       </main>

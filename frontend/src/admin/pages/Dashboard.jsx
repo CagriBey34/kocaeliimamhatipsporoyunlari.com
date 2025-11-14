@@ -1,14 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Upload, Trophy, FileText, TrendingUp, Users } from 'lucide-react';
+import { Camera, Upload, Trophy, FileText, Users, MapPin, Sparkles, ArrowRight, LogOut } from 'lucide-react';
+import {  useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const stats = [
-    { label: 'Toplam Fotoğraf', value: '245', icon: Camera, color: 'blue' },
-    { label: 'Toplam Başvuru', value: '128', icon: Users, color: 'green' },
-    { label: 'Aktif Turnuva', value: '8', icon: Trophy, color: 'purple' },
-    { label: 'Bu Ay', value: '+42', icon: TrendingUp, color: 'orange' },
-  ];
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // sessionStorage'dan 'isLoggedIn' anahtarını kaldır
+    sessionStorage.removeItem('isLoggedIn');
+    // Kullanıcıyı giriş sayfasına yönlendir
+    navigate('/admin/login');
+  };
+
 
   const menuItems = [
     {
@@ -16,109 +21,165 @@ const Dashboard = () => {
       icon: Camera,
       title: 'Fotoğraf Galerisi',
       description: 'Mevcut fotoğrafları görüntüleyin, düzenleyin veya silin',
-      gradient: 'from-blue-500 to-blue-600',
-      iconBg: 'bg-blue-100',
-      iconColor: 'text-blue-600'
+      gradient: 'from-blue-500 via-blue-600 to-indigo-600',
+      bgPattern: 'bg-blue-50/50',
+      glowColor: 'group-hover:shadow-blue-500/20'
     },
     {
       to: '/admin/upload',
       icon: Upload,
       title: 'Fotoğraf Yükle',
       description: 'Galeriye yeni fotoğraflar ekleyin',
-      gradient: 'from-green-500 to-green-600',
-      iconBg: 'bg-green-100',
-      iconColor: 'text-green-600'
+      gradient: 'from-emerald-500 via-green-600 to-teal-600',
+      bgPattern: 'bg-emerald-50/50',
+      glowColor: 'group-hover:shadow-emerald-500/20'
     },
     {
       to: '/admin/tournaments',
       icon: Trophy,
       title: 'Turnuva Yönetimi',
       description: 'Turnuvaları yönetin, düzenleyin ve takip edin',
-      gradient: 'from-purple-500 to-purple-600',
-      iconBg: 'bg-purple-100',
-      iconColor: 'text-purple-600'
+      gradient: 'from-purple-500 via-violet-600 to-purple-700',
+      bgPattern: 'bg-purple-50/50',
+      glowColor: 'group-hover:shadow-purple-500/20'
     },
     {
       to: '/admin/applications',
       icon: FileText,
-      title: 'Başvuru Yönetimi',
-      description: 'Okul başvurularını inceleyin ve yönetin',
-      gradient: 'from-orange-500 to-orange-600',
-      iconBg: 'bg-orange-100',
-      iconColor: 'text-orange-600'
+      title: 'İstanbul Başvuruları',
+      description: 'İstanbul okullarının başvurularını yönetin',
+      gradient: 'from-orange-500 via-amber-600 to-yellow-600',
+      bgPattern: 'bg-orange-50/50',
+      glowColor: 'group-hover:shadow-orange-500/20'
+    },
+    {
+      to: '/admin/national-applications',
+      icon: MapPin,
+      title: 'Türkiye Başvuruları',
+      description: 'Tüm Türkiye genelinden gelen başvuruları yönetin',
+      gradient: 'from-red-500 via-rose-600 to-pink-600',
+      bgPattern: 'bg-red-50/50',
+      glowColor: 'group-hover:shadow-red-500/20'
     },
     {
       to: '/admin/students',
-      icon: FileText,
+      icon: Users,
       title: 'Öğrenci Bilgileri',
-      description: 'Öğrenci Bilgilerini inceleyin ve yönetin',
-      gradient: 'from-red-500 to-red-600',
-      iconBg: 'bg-red-100',
-      iconColor: 'text-red-600'
+      description: 'Kayıtlı öğrencileri inceleyin ve yönetin',
+      gradient: 'from-cyan-500 via-sky-600 to-blue-600',
+      bgPattern: 'bg-cyan-50/50',
+      glowColor: 'group-hover:shadow-cyan-500/20'
     }
   ];
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-            Yönetim Paneli
-          </h1>
-          <p className="text-gray-600 text-lg">
-            16. İmam Hatip Spor Oyunları Yönetim Sistemi
-          </p>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            İşlemler
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {menuItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.to}
-                className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 transform hover:-translate-y-1"
-              >
-                {/* Gradient Header */}
-                <div className={`h-2 bg-gradient-to-r ${item.gradient}`}></div>
-                
-                {/* Content */}
-                <div className="p-6">
-                  {/* Icon */}
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg ${item.iconBg} mb-4 group-hover:scale-110 transition-transform`}>
-                    <item.icon className={`w-6 h-6 ${item.iconColor}`} />
+    <div className="min-h-screen ">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Premium Header */}
+        <div className="mb-12 relative">
+          {/* Background Decoration */}
+          <div className="absolute -top-20 -left-20 w-72 h-72 bg-gradient-to-br from-red-100 to-orange-100 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute -top-10 -right-20 w-96 h-96 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full blur-3xl opacity-20 animate-pulse delay-1000"></div>
+          
+          <div className="relative">
+            {/* Header Container with Logout */}
+            <div className="flex items-start justify-between mb-3">
+              {/* Title with Sparkle Effect */}
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl shadow-lg shadow-red-500/30">
+                  <Sparkles className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent leading-tight">
+                    Yönetim Paneli
+                  </h1>
+                  <div className="flex items-center gap-2 mt-1">
+                    <div className="h-1 w-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
+                    <p className="text-gray-600 font-medium">
+                      16. İmam Hatip Spor Oyunları
+                    </p>
                   </div>
-                  
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
-                    {item.title}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
+              </div>
 
-                {/* Hover Arrow */}
-                <div className="px-6 pb-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-sm font-medium text-red-600 flex items-center gap-1">
-                    Yönet
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            ))}
+              {/* Logout Button */}
+              <button 
+                onClick={handleLogout}
+                className="flex items-center gap-2 px-4 py-2.5  text-gray-700 hover:text-red-600 hover:bg-red-50  transition-all duration-300  "
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline font-medium">Çıkış Yap</span>
+              </button>
+            </div>
           </div>
         </div>
 
+        {/* Premium Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {menuItems.map((item, index) => (
+            <Link
+              key={index}
+              to={item.to}
+              className={`group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl ${item.glowColor} transition-all duration-500 overflow-hidden border border-gray-100/50 transform hover:-translate-y-2 hover:scale-[1.02]`}
+              style={{
+                animationDelay: `${index * 100}ms`,
+                animation: 'fadeInUp 0.6s ease-out forwards',
+                opacity: 0
+              }}
+            >
+              {/* Animated Background Pattern */}
+             
+              {/* Content Container */}
+              <div className="relative p-8">
+                {/* Icon Container with Floating Animation */}
+                <div className="mb-6">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
+                    <item.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
+                  </div>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-gray-900 group-hover:to-gray-600 transition-all duration-300">
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  {item.description}
+                </p>
+
+                {/* Arrow Button with Slide Effect */}
+                <div className="flex items-center gap-2 text-sm font-semibold text-gray-400 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-red-600 group-hover:to-orange-600 transition-all duration-300">
+                  <span>Yönetim Sayfası</span>
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300" />
+                </div>
+              </div>
+
+              {/* Bottom Shine Effect */}
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </Link>
+          ))}
+        </div>
       </div>
+
+      {/* Custom Animations */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .bg-grid-white\/\[0\.05\] {
+          background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                            linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+      `}</style>
     </div>
   );
 };

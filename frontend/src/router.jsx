@@ -10,8 +10,8 @@ import Awards from './pages/awards/DerecePage';
 import Instructions from './pages/Instructions';
 import Tournament from './pages/Tournament'; 
 import Application from './pages/Application'; 
-import StudentRegistration from './pages/StudentRegistration'; // ✅ YENİ
-
+import StudentRegistration from './pages/StudentRegistration'; // ✅ YENİimport NationalApplication from './pages/NationalApplication'; // ✅ EKLE
+import NationalApplication from './pages/NationalApplication'; // ✅ EKLE
 // Admin sayfaları
 import Login from './admin/pages/Login';
 import Dashboard from './admin/pages/Dashboard';
@@ -20,6 +20,8 @@ import UploadPhotos from './admin/pages/UploadPhotos';
 import TournamentManagement from './admin/pages/TournamentManagement';
 import ApplicationsPage from './admin/pages/ApplicationsPage';
 import StudentsPage from './admin/pages/StudentsPage'; // ✅ YENİ
+import NationalApplicationsPage from './admin/pages/NationalApplicationsPage'; // ✅ EKLE
+
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -39,6 +41,7 @@ const AppRoutes = () => {
         <Route path="/turnuva" element={<Tournament />} />
         <Route path="/turnuva-final-asamasi" element={<TournamentFinal />} />
         <Route path="/basvuru" element={<Application />} />
+        <Route path="/turkiye-basvuru" element={<NationalApplication />} /> 
         <Route path="/ogrenci-kayit" element={<StudentRegistration />} /> 
       </Route>
       
@@ -48,6 +51,7 @@ const AppRoutes = () => {
         <Route path="/admin/photos" element={<PhotosPage />} />
         <Route path="/admin/upload" element={<UploadPhotos />} />
         <Route path="/admin/tournaments" element={<TournamentManagement />} /> 
+        <Route path="/admin/national-applications" element={<NationalApplicationsPage />} />
         <Route path="/admin/applications" element={<ApplicationsPage />} />
         <Route path="/admin/students" element={<StudentsPage />} /> 
         <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
