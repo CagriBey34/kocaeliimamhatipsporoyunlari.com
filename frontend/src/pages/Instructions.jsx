@@ -10,30 +10,6 @@ const Instructions = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [talimatnameler, setTalimatnameler] = useState([
     {
-      id: 1,
-      title: "Genel Talimatname",
-      icon: "scroll",
-      color: "blue",
-      file: "Genel_Talimatname.pdf",
-      description: "Tüm sportif etkinlikler için geçerli olan genel kurallar, yönetmelikler ve müsabaka prosedürleri"
-    },
-    {
-      id: 2,
-      title: "Dart",
-      icon: "dart",
-      color: "green",
-      file: "Dart Talimatmane.pdf",
-      description: "Dart müsabakalarının kuralları, puanlama sistemi, ekipman standartları ve turnuva düzenlemeleri"
-    },
-    {
-      id: 3,
-      title: "Geleneksel Türk Okçuluğu",
-      icon: "bow",
-      color: "red",
-      file: "GelenekselTürkOkçuluğu.pdf",
-      description: "Geleneksel Türk okçuluğu için tarihsel temelli kurallar, yarışma formatları ve teknik standartlar"
-    },
-    {
       id: 4,
       title: "Masa Tenisi",
       icon: "tennis",
@@ -48,46 +24,6 @@ const Instructions = () => {
       color: "orange",
       file: "taekwondotalimatnamesi.pdf",
       description: "Taekwondo müsabakalarının düzenlenmesi, müsabık kategorileri, teknik kurallar ve puanlama sistemi"
-    },
-    {
-      id: 6,
-      title: "Güreş Talimatnamesi",
-      icon: "ai",
-      color: "yellow",
-      file: "gurestlmtnmiki.pdf",
-      description: "Güreş müsabakaları için sikletler, teknik kurallar, galibiyetin belirlenmesi ve turnuva formatı"
-    },
-    {
-      id: 7,
-      title: "Futsal Talimatnamesi",
-      icon: "football",
-      color: "green",
-      file: "FUTSAL Talimatnamesi.pdf",
-      description: "Futsal müsabakalarının organizasyonu, oyun kuralları, sahaya dair standartlar ve turnuva düzeni"
-    },
-    {
-      id: 8,
-      title: "Bilek Güreşi Talimatnamesi",
-      icon: "hand",
-      color: "gray",
-      file: "bilek güreşi talimatnamesi.pdf",
-      description: "Bilek güreşi müsabakaları için teknik detaylar, masa standartları, sikletler ve yarışma prosedürleri"
-    },
-    {
-      id: 9,
-      title: "Badminton Talimatnamesi",
-      icon: "shuttle",
-      color: "teal",
-      file: "Badminton Talimatnamesi.pdf",
-      description: "Badminton müsabakaları için saha özellikleri, raket ve top standartları, maç formatı ve kuralları"
-    },
-    {
-      id: 10,
-      title: "Atletizm Talimatnamesi",
-      icon: "running",
-      color: "pink",
-      file: "atltmtlmt.pdf",
-      description: "Atletizm branşlarının tüm disiplinleri için yarışma kuralları, pist standartları ve hakem yönetmelikleri"
     }
   ]);
 
