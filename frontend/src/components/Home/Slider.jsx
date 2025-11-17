@@ -11,7 +11,7 @@ const Slider = () => {
       web_image: '/assets/banner.jpeg',
       mobile_image: '/assets/banner.jpeg',
       title: 'İmam Hatip Spor Oyunları',
-      link: 'https://imamhatipsporoyunlari.com/basvuru'
+      link: 'https://imamhatipsporoyunlari.com/ogrenci-kayit'
     }
   ];
 

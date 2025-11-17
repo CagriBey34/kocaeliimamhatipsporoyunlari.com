@@ -12,9 +12,9 @@ const StatsCounter = () => {
   const containerRef = useRef(null);
   
   const targets = {
-    cups: 20,
-    branches: 11,
-    athletes: 500,
+    cups: 40,
+    branches: 17,
+    athletes: 4000,
     schools: 400
   };
 

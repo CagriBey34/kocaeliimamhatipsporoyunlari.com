@@ -19,7 +19,7 @@ const WebHeader = () => {
     { name: 'Talimatname', path: '/instructions' },
     { name: 'Turnuva', path: '/turnuva' },
     { name: 'Derece', path: '/dereceye-girenler' },
-        { name: 'Başvuru', path: '/basvuru' }
+        { name: 'Başvuru', path: '/ogrenci-kayit' }
   ];
 
   useEffect(() => {
