@@ -21,43 +21,43 @@ const Dashboard = () => {
       icon: Camera,
       title: 'Fotoğraf Galerisi',
       description: 'Mevcut fotoğrafları görüntüleyin, düzenleyin veya silin',
-      gradient: 'from-blue-500 via-blue-600 to-indigo-600',
-      bgPattern: 'bg-blue-50/50',
-      glowColor: 'group-hover:shadow-blue-500/20'
+      gradient: 'from-red-500 via-red-600 to-red-600',
+      bgPattern: 'bg-red-50/50',
+      glowColor: 'group-hover:shadow-red-500/20'
     },
     {
       to: '/admin/upload',
       icon: Upload,
       title: 'Fotoğraf Yükle',
       description: 'Galeriye yeni fotoğraflar ekleyin',
-      gradient: 'from-emerald-500 via-green-600 to-teal-600',
-      bgPattern: 'bg-emerald-50/50',
-      glowColor: 'group-hover:shadow-emerald-500/20'
+      gradient: 'from-red-500 via-red-600 to-red-600',
+      bgPattern: 'bg-red-50/50',
+      glowColor: 'group-hover:shadow-red-500/20'
     },
     {
       to: '/admin/tournaments',
       icon: Trophy,
       title: 'Turnuva Yönetimi',
       description: 'Turnuvaları yönetin, düzenleyin ve takip edin',
-      gradient: 'from-purple-500 via-violet-600 to-purple-700',
-      bgPattern: 'bg-purple-50/50',
-      glowColor: 'group-hover:shadow-purple-500/20'
+      gradient: 'from-red-500 via-red-600 to-red-700',
+      bgPattern: 'bg-red-50/50',
+      glowColor: 'group-hover:shadow-red-500/20'
     },
     {
       to: '/admin/applications',
       icon: FileText,
       title: 'İstanbul Başvuruları',
       description: 'İstanbul okullarının başvurularını yönetin',
-      gradient: 'from-orange-500 via-amber-600 to-yellow-600',
-      bgPattern: 'bg-orange-50/50',
-      glowColor: 'group-hover:shadow-orange-500/20'
+      gradient: 'from-red-500 via-red-600 to-red-600',
+      bgPattern: 'bg-red-50/50',
+      glowColor: 'group-hover:shadow-red-500/20'
     },
     {
       to: '/admin/national-applications',
       icon: MapPin,
       title: 'Türkiye Başvuruları',
       description: 'Tüm Türkiye genelinden gelen başvuruları yönetin',
-      gradient: 'from-red-500 via-rose-600 to-pink-600',
+      gradient: 'from-red-500 via-red-600 to-red-600',
       bgPattern: 'bg-red-50/50',
       glowColor: 'group-hover:shadow-red-500/20'
     },
@@ -66,8 +66,17 @@ const Dashboard = () => {
       icon: Users,
       title: 'Öğrenci Bilgileri',
       description: 'Kayıtlı öğrencileri inceleyin ve yönetin',
-      gradient: 'from-cyan-500 via-sky-600 to-blue-600',
-      bgPattern: 'bg-cyan-50/50',
+      gradient: 'from-red-500 via-red-600 to-red-600',
+      bgPattern: 'bg-red-50/50',
+      glowColor: 'group-hover:shadow-red-500/20'
+    },
+    {
+      to: '/admin/blog',
+      icon: Users,
+      title: 'Blog Yönetimi',
+      description: 'Blog gönderilerini oluşturun, düzenleyin ve silin',
+      gradient: 'from-red-500 via-red-600 to-red-600',
+      bgPattern: 'bg-red-50/50',
       glowColor: 'group-hover:shadow-cyan-500/20'
     }
   ];
