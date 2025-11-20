@@ -13,23 +13,19 @@ const adminRoutes = require('./routes/adminRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes'); 
 const applicationRoutes = require('./routes/applicationRoutes'); 
 const studentRoutes = require('./routes/studentRoutes');
-
-
+const postRoutes = require('./routes/postRoutes'); // ✅ YENİ EKLE
 
 // Initialize app
 const app = express();
 
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
-
 app.use(cors({
   origin: function(origin, callback) {
-    // Localhost'un herhangi bir port numarasına ve üretim domainlerine izin ver
     const allowedOrigins = [/^http:\/\/localhost:\d+$/, 'https://imamhatipsporoyunlari.com'];
     
-    // Regex ile kontrol et veya doğrudan eşleme yap
     const originIsAllowed = 
-      !origin || // Tarayıcı dışı isteklere izin ver (Postman, vb.)
+      !origin || 
       allowedOrigins.some(allowed => 
         typeof allowed === 'string' 
           ? allowed === origin 
@@ -42,7 +38,7 @@ app.use(cors({
       callback(new Error('CORS policy violation'));
     }
   },
-  credentials: true // Bu ayar zaten var, iyi
+  credentials: true
 }));
 
 app.use(bodyParser.json());
@@ -50,16 +46,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Session middleware
 const session = require('express-session');
-// server.js içinde
 app.use(session({
   secret: process.env.SESSION_SECRET || 'oncü1958*',
-  resave: true, // Değişti: false yerine true
-  saveUninitialized: true, // Değişti: false yerine true
+  resave: true,
+  saveUninitialized: true,
   cookie: {
-    secure: false, // Değişti: Lokalda false olmalı, https olmadığı için
+    secure: false,
     httpOnly: false,
     sameSite: 'lax',
-    maxAge: 24 * 60 * 60 * 1000 // 1 gün
+    maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
@@ -71,10 +66,8 @@ app.use('/api', photoRoutes);
 app.use('/admin', adminRoutes); 
 app.use('/api', tournamentRoutes);
 app.use('/api', applicationRoutes); 
-app.use('/api/students', studentRoutes);  
-
-
-
+app.use('/api/students', studentRoutes);
+app.use('/api', postRoutes); // ✅ YENİ EKLE
 
 // Server setup
 const PORT = process.env.PORT || 8561;

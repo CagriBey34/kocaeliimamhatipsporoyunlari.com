@@ -16,8 +16,6 @@ const adminApi = axios.create({
   withCredentials: true
 });
 
-// src/services/api.js dosyasında aşağıdaki değişiklikleri yapın
-
 // API instance oluşturup istekte bulunduktan sonra bir interceptor ekleyelim
 api.interceptors.response.use(
   response => response,
