@@ -30,7 +30,7 @@ services:
       - NODE_ENV=production
       - DB_HOST=mysql
       - DB_USER=root
-      - DB_PASSWORD=root123
+      - DB_PASSWORD=
       - DB_NAME=spor_galeri
     networks:
       - app-network
