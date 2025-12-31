@@ -49,10 +49,10 @@ exports.getSportConfigurations = async (req, res) => {
       },
       "Bilek Güreşi": {
         categories: {
-          "Küçük Erkek": {
-            birthYears: [2014, 2015],
-            weights: ["35", "40", "45", "50", "55", "60", "+65"]
-          },
+          // "Küçük Erkek": {
+          //   birthYears: [2014, 2015],
+          //   weights: ["35", "40", "45", "50", "55", "60", "+65"]
+          // },
           "Yıldız Erkek": {
             birthYears: [2012, 2013],
             weights: ["40", "45", "50", "55", "60", "65", "+70"]
