@@ -1,94 +1,196 @@
-import React, { useState, useEffect } from 'react';
-import Logo from './footer_logo.png';
-import { FaInstagram, FaTwitter, FaFacebook, FaYoutube } from 'react-icons/fa';
+import React from "react";
+import Logo from "./footer_logo.png";
+import {
+  Instagram,
+  Twitter,
+  Facebook,
+  Youtube,
+  MapPin,
+  Phone,
+  Mail,
+  ArrowRight,
+  Heart,
+} from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [isVisible, setIsVisible] = useState(false);
-  
-  useEffect(() => {
-    // Footer görünür olduğunda animasyonu başlat
-    setIsVisible(true);
-  }, []);
-  
+
+  const socialLinks = [
+    {
+      icon: <Instagram size={20} />,
+      href: "https://www.instagram.com/oncugenclikspor/",
+      label: "Instagram",
+    },
+    {
+      icon: <Twitter size={20} />,
+      href: "https://x.com/oncugenclikspor",
+      label: "Twitter",
+    },
+    {
+      icon: <Facebook size={20} />,
+      href: "https://www.facebook.com/OncuGenclikveSpor/",
+      label: "Facebook",
+    },
+    {
+      icon: <Youtube size={20} />,
+      href: "https://www.youtube.com/@ÖncüSporKulübü",
+      label: "Youtube",
+    },
+  ];
+
+  const quickLinks = [
+    { name: "Anasayfa", href: "/" },
+    { name: "Galeri", href: "/gallery" },
+    { name: "İletişim", href: "/iletişim" },
+    { name: "Talimatnameler", href: "/instructions" },
+    { name: "Turnuvalar", href: "/turnuva" },
+    { name: "Dereceler", href: "/dereceye-girenler" },
+  ];
+
   return (
-    <footer 
-      className="w-full py-8 mt-24 overflow-hidden"
-      style={{ backgroundColor: '#E84049' }}
-    >
-      <div 
-        className={`container mx-auto px-6 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
-        }`}
-      >
-        {/* Ana içerik - Masaüstünde üçe bölünmüş, mobilde tek sütun */}
-        <div className="flex flex-col md:flex-row md:justify-between items-center">
-          
-          {/* Sol taraf - Sadece masaüstünde görünür */}
-          <div className="hidden md:flex md:w-1/4 flex-col items-center md:items-start">
-            <h3 className="text-white font-bold mb-4">Sosyal Medya</h3>
-            <div className="flex space-x-4">
-              <a href="https://www.instagram.com/oncugenclikspor/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-all duration-300">
-                <FaInstagram size={24} />
-              </a>
-              <a href="https://x.com/oncugenclikspor" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-all duration-300">
-                <FaTwitter size={24} />
-              </a>
-              <a href="https://www.facebook.com/OncuGenclikveSpor/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-all duration-300">
-                <FaFacebook size={24} />
-              </a>
-              <a href="https://www.youtube.com/@ÖncüSporKulübü" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-all duration-300">
-                <FaYoutube size={24} />
-              </a>
-            </div>
-          </div>
-          
-          {/* Orta - Her zaman görünür */}
-          <div className="flex flex-col items-center md:w-2/4">
-            {/* Logo */}
-            <div className="relative mb-6 transform transition-transform duration-500 hover:scale-105">
-              <div className="absolute -inset-1 rounded-full bg-white/20 blur-md opacity-70" />
+    <footer className="relative bg-slate-900 text-white pt-24 pb-12 mt-0  overflow-hidden font-sans selection:bg-red-600 selection:text-white">
+      {/* --- ARKA PLAN EFEKTLERİ --- */}
+      {/* 1. Grid Çizgileri */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+        <div className="absolute top-0 left-1/4 w-px h-full bg-white"></div>
+        <div className="absolute top-0 left-2/4 w-px h-full bg-white"></div>
+        <div className="absolute top-0 left-3/4 w-px h-full bg-white"></div>
+      </div>
+
+      {/* 2. Renkli Işıklar (Blur) */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none translate-x-1/2 translate-y-1/2"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        {/* --- ÜST BÖLÜM (GRID) --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+          {/* 1. KOLON: LOGO VE MİSYON (4 birim genişlik) */}
+          <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="relative mb-6 group">
+              {/* Logo Arkası Parlama */}
+              <div className="absolute inset-0 bg-white/5 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <img
                 src={Logo}
                 alt="Öncü Spor Logo"
-                className="relative w-42 h-42 object-contain"
+                className="relative w-48 h-auto object-contain drop-shadow-2xl"
               />
             </div>
-            
-            {/* Navigasyon */}
-            <div className="flex space-x-6 mb-6">
-              <a href="/" className="text-white hover:text-white/80 transition-all duration-300 relative group">
-                Anasayfa
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="/gallery" className="text-white hover:text-white/80 transition-all duration-300 relative group">
-                Galeri
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="/iletişim" className="text-white hover:text-white/80 transition-all duration-300 relative group">
-                İletişim
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
-              </a>
+            <p className="text-slate-400 leading-relaxed mb-6 font-medium max-w-sm">
+              Sporun birleştirici gücüyle gençleri geleceğe hazırlıyor, ahlak ve
+              kardeşlik ilkeleriyle şampiyonlar yetiştiriyoruz.
+            </p>
+            {/* Sosyal Medya İkonları */}
+            <div className="flex gap-3">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-red-600 hover:border-red-600 hover:text-white hover:-translate-y-1 transition-all duration-300"
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
-            
-            {/* Telif hakkı */}
-            <div className="text-white/90 text-sm text-center">
-              <div className="inline-flex items-center">
-                <span>©</span>
-                <span className="mx-2 animate-pulse">{currentYear}</span>
-                <span>ÖNCÜ SPOR KULÜBÜ</span>
+          </div>
+
+          {/* 2. KOLON: HIZLI ERİŞİM (3 birim genişlik) */}
+          <div className="lg:col-span-3 lg:pl-8 flex flex-col items-center lg:items-start">
+            <h3 className="text-lg font-black tracking-wider uppercase mb-6 flex items-center gap-2">
+              <span className="w-8 h-1 bg-red-600 rounded-full"></span>
+              Kurumsal
+            </h3>
+            <ul className="space-y-4">
+              {quickLinks.map((link, idx) => (
+                <li key={idx}>
+                  <a
+                    href={link.href}
+                    className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-300"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-red-600 transition-colors"></span>
+                    {link.name}
+                    <ArrowRight
+                      size={14}
+                      className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-red-600"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 3. KOLON: İLETİŞİM (5 birim genişlik) */}
+          {/* Değişiklik: 'hidden' eklendi ve 'flex' -> 'lg:flex' yapıldı */}
+          <div className="hidden lg:flex lg:col-span-5 flex-col items-center lg:items-start">
+            <h3 className="text-lg font-black tracking-wider uppercase mb-6 flex items-center gap-2">
+              <span className="w-8 h-1 bg-red-600 rounded-full"></span>
+              Bize Ulaşın
+            </h3>
+
+            <div className="space-y-6 w-full max-w-md">
+              {/* Adres Kartı */}
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                <div className="mt-1 w-10 h-10 rounded-full bg-red-600/20 flex items-center justify-center text-red-500 shrink-0">
+                  <MapPin size={20} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold mb-1">Genel Merkez</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Akşemsettin Mh. Şair Fuzuli Sk. No: 22 <br /> Fatih /
+                    İstanbul
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Telefon */}
+                <a
+                  href="tel:05309159293"
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group"
+                >
+                  <div className="w-10 h-10 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <Phone size={20} />
+                  </div>
+                  <div>
+                    <span className="block text-xs text-slate-500">
+                      Telefon
+                    </span>
+                    <span className="text-slate-300 font-bold group-hover:text-white">
+                      0530 915 92 93
+                    </span>
+                  </div>
+                </a>
+
+                {/* E-Posta */}
+                <a
+                  href="mailto:oncugeclikvespor@gmail.com"
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group"
+                >
+                  <div className="w-10 h-10 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <span className="block text-xs text-slate-500">
+                      E-Posta
+                    </span>
+                    <span className="text-slate-300 font-bold group-hover:text-white text-sm">
+                      bilgi@oncuspor.com
+                    </span>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
-          
-          {/* Sağ taraf - Sadece masaüstünde görünür */}
-          <div className="hidden md:block md:w-1/4">
-            <div className="text-white text-right">
-              <h3 className="font-bold mb-2">İletişim</h3>
-              <p className="text-sm mb-1">0530 915 92 93</p>
-              <p className="text-sm mb-4">oncugeclikvespor@gmail.com</p>
-              <p className="text-xs italic">Akşemsettin Mh. Şair Fuzuli Sk. No: 22 <br />Fatih - İstanbul</p>
-            </div>
+        </div>
+
+        {/* --- ALT ÇİZGİ VE TELİF --- */}
+        <div className="border- border-white/10 pt-0 mt-0 flex flex-col lg:flex-row items-center justify-between gap-4">
+          <div className="text-slate-500 text-sm font-medium">
+            © {currentYear}{" "}
+            <span className="text-white font-bold">Öncü Spor Kulübü</span>. Tüm
+            hakları saklıdır.
           </div>
         </div>
       </div>

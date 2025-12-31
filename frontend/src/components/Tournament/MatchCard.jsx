@@ -1,129 +1,128 @@
 // src/components/Tournament/MatchCard.jsx
 import React from 'react';
+import { Calendar, Clock, MapPin, Trophy, Minus } from 'lucide-react';
 
 const MatchCard = ({ match }) => {
+  // --- MANTIK KISMI (Aynen Korundu) ---
+  
   // Tarih ve saat formatlaması için yardımcı fonksiyon
-  // UTC olarak alınan tarihi, yerel saat dilimine dönüştürmeden işler
   const formatMatchTime = (isoDateString) => {
     if (!isoDateString) return { date: '', time: '' };
     
-    // ISO formatındaki string'i Date nesnesine dönüştür
     const matchDate = new Date(isoDateString);
     
-    // Tarih ve saat bilgisinin parçalarını al
     const year = matchDate.getUTCFullYear();
     const month = String(matchDate.getUTCMonth() + 1).padStart(2, '0');
     const day = String(matchDate.getUTCDate()).padStart(2, '0');
     const hours = String(matchDate.getUTCHours()).padStart(2, '0');
     const minutes = String(matchDate.getUTCMinutes()).padStart(2, '0');
     
-    // Türkçe formatında tarih ve saat string'leri oluştur
     const formattedDate = `${day}.${month}.${year}`;
     const formattedTime = `${hours}:${minutes}`;
     
     return { date: formattedDate, time: formattedTime };
   };
   
-  // Tarih ve saat bilgilerini al
   const { date: formattedDate, time: formattedTime } = formatMatchTime(match.match_time);
   
-  // E84049 rengini kullan (sizin sitenizin rengi)
-  const mainColor = '#E84049';
-  
-  // Maç durumunu belirle - UTC zamanı kullanarak
   const now = new Date();
   const matchTimeUTC = new Date(match.match_time);
   const isUpcoming = !match.is_finished && matchTimeUTC > now;
   const isLive = !match.is_finished && matchTimeUTC <= now;
-  
+
+  // --- TASARIM YARDIMCILARI ---
+
+  // Duruma göre etiket rengi ve metni
+  const getStatusBadge = () => {
+    if (match.is_finished) {
+      return { text: "Tamamlandı", classes: "bg-slate-100 text-slate-500" };
+    } else if (isLive) {
+      return { text: "Canlı", classes: "bg-red-100 text-red-600 animate-pulse" };
+    } else {
+      return { text: "Başlamadı", classes: "bg-blue-50 text-blue-600" };
+    }
+  };
+
+  const status = getStatusBadge();
+
   return (
-    <div className="overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
-      {/* Üst Bilgi Çubuğu */}
-      <div 
-        className="p-3 text-white flex justify-between items-center"
-        style={{ backgroundColor: mainColor }}
-      >
-        <div className="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-          </svg>
-          <span className="font-medium">{formattedDate}</span>
+    <div className="group relative bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col">
+      
+      {/* Üst Bilgi: Tarih, Saat ve Durum */}
+      <div className="flex justify-between items-start mb-6">
+        <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2 text-slate-500 text-xs font-bold uppercase tracking-wider">
+                <Calendar size={14} className="text-red-500" />
+                <span>{formattedDate}</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-900 font-black text-xl">
+                <Clock size={18} className="text-slate-400" />
+                <span>{formattedTime}</span>
+            </div>
         </div>
-        <div className="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-          </svg>
-          <span className="font-medium">{formattedTime}</span>
+        
+        <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-transparent ${status.classes}`}>
+            {status.text}
         </div>
       </div>
-      
+
       {/* Takımlar ve Skor Alanı */}
-      <div className="bg-white p-4">
+      <div className="flex-1 flex flex-col justify-center gap-4 relative">
+        
+        {/* Dekoratif Dikey Çizgi (Sol tarafta) */}
+        <div className="absolute left-6 top-2 bottom-2 w-0.5 bg-slate-100 rounded-full"></div>
+
         {/* Takım 1 */}
-        <div className="flex items-center mb-4">
-          <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center mr-3 transform hover:scale-110 transition-all duration-300"
-               style={{ backgroundColor: mainColor }}>
-            <span className="text-white text-xl font-bold">
-              {match.team1_name.charAt(0)}
-            </span>
-          </div>
-          <div className="font-medium text-gray-800 flex-grow text-sm md:text-base">
-            {match.team1_name}
-          </div>
-          {match.is_finished && (
-            <div className="font-bold text-2xl text-gray-800 ml-auto">
-              {match.team1_score}
+        <div className="flex items-center justify-between pl-4 relative z-10">
+            <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-red-500/20 shrink-0 transform group-hover:scale-110 transition-transform duration-500">
+                    {match.team1_name.charAt(0)}
+                </div>
+                <span className="font-bold text-slate-800 text-lg leading-tight">
+                    {match.team1_name}
+                </span>
             </div>
-          )}
+            {match.is_finished ? (
+                <span className={`text-2xl font-black ${Number(match.team1_score) > Number(match.team2_score) ? 'text-slate-900' : 'text-slate-400'}`}>
+                    {match.team1_score}
+                </span>
+            ) : null}
         </div>
-        
-        {/* Orta Çizgi */}
-        <div className="relative my-4">
-          <div className="absolute w-full h-px bg-gray-200"></div>
-          
-          {/* VS her zaman göster */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-3 font-bold text-xl"
-               style={{ color: mainColor }}>
-            VS
-          </div>
-        </div>
-        
-        {/* Takım 2 */}
-        <div className="flex items-center">
-          <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center mr-3 mt-4 transform hover:scale-110 transition-all duration-300"
-               style={{ backgroundColor: mainColor }}>
-            <span className="text-white text-xl font-bold">
-              {match.team2_name.charAt(0)}
-            </span>
-          </div>
-          <div className="font-medium text-gray-800 flex-grow text-sm md:text-base">
-            {match.team2_name}
-          </div>
-          {match.is_finished && (
-            <div className="font-bold text-2xl text-gray-800 ml-auto">
-              {match.team2_score}
+
+        {/* VS Ayracı (Eğer maç bitmediyse) */}
+        {!match.is_finished && (
+            <div className="pl-16 flex items-center gap-2 opacity-50">
+                 <span className="text-xs font-black text-slate-300 bg-slate-50 px-2 py-1 rounded-md">VS</span>
             </div>
-          )}
-        </div>
-      </div>
-      
-      {/* Alt Bilgi Çubuğu - Her zaman göster */}
-      <div className="bg-gray-50 p-2 border-t border-gray-200 text-sm">
-        {/* Maç Durumu - Her durumda bir mesaj göster */}
-        <div className="font-medium text-center" style={{ color: mainColor }}>
-          {match.is_finished ? "Maç Tamamlandı" : isLive ? "Maç Başladı" : "Maç Başlamadı"}
-        </div>
-        
-        {/* Maç Yeri */}
-        {match.location && (
-          <div className="text-gray-600 text-center flex items-center justify-center mt-1">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-            </svg>
-            {match.location}
-          </div>
         )}
+
+        {/* Takım 2 */}
+        <div className="flex items-center justify-between pl-4 relative z-10">
+            <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-white border-2 border-slate-100 text-slate-700 flex items-center justify-center font-black text-xl shrink-0 transform group-hover:scale-110 transition-transform duration-500">
+                    {match.team2_name.charAt(0)}
+                </div>
+                <span className="font-bold text-slate-800 text-lg leading-tight">
+                    {match.team2_name}
+                </span>
+            </div>
+            {match.is_finished ? (
+                <span className={`text-2xl font-black ${Number(match.team2_score) > Number(match.team1_score) ? 'text-slate-900' : 'text-slate-400'}`}>
+                    {match.team2_score}
+                </span>
+            ) : null}
+        </div>
+
       </div>
+
+      {/* Alt Bilgi: Lokasyon  */}
+      {match.location && (
+        <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-center text-slate-400 text-sm font-bold group-hover:text-red-500 transition-colors">
+            <MapPin size={16} className="mr-2" />
+            <span className="truncate max-w-[250px]">{match.location}</span>
+        </div>
+      )}
+
     </div>
   );
 };
