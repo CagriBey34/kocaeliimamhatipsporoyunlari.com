@@ -88,13 +88,13 @@ const Gallery = () => {
         {/* Google Drive Linki */}
         <div className="max-w-xl mx-auto mb-16">
           <a
-            href="https://drive.google.com/drive/folders/13u3KOYN7elfUP0Dpqd04aMCwxJ10J5Rc"
+            href="https://drive.google.com/drive/folders/1xthhsCAXAdEAj2elHJQdvD5hA3dtyJ9B"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center justify-between p-1 pl-6 bg-white border border-slate-200 rounded-full hover:border-red-200 hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300"
           >
             <span className="font-bold text-slate-700 group-hover:text-red-600 transition-colors text-sm sm:text-base">
-              15. İmam Hatip Spor Oyunları Fotoğraf Arşivi
+              16. İmam Hatip Spor Oyunları Fotoğraf Arşivi
             </span>
             <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-600 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shrink-0">
                 <ExternalLink size={20} />

@@ -16,7 +16,6 @@ const ResponsiveHeader = () => {
   // --- Scroll Takibi ---
   useEffect(() => {
     const handleScroll = () => {
-      // 20px aşağı inildiğinde scroll modu aktif olur
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
@@ -37,7 +36,7 @@ const ResponsiveHeader = () => {
   ];
 
   const rightLinks = [
-    { name: 'Talimatlar', path: '/instructions', icon: <FileText size={18} /> },
+    { name: 'Talimatname', path: '/instructions', icon: <FileText size={18} /> },
     { name: 'Turnuva', path: '/turnuva', icon: <Trophy size={18} /> },
     { name: 'Dereceler', path: '/dereceye-girenler', icon: <Award size={18} /> },
   ];
@@ -53,32 +52,21 @@ const ResponsiveHeader = () => {
 
   return (
     <>
-      {/* ==================================================================
-          MAIN HEADER CONTAINER
-          - Fixed position
-          - Padding adjustment on scroll
-      ================================================================== */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out px-4 md:px-8 ${
-          isScrolled ? 'pt-2' : 'pt-6'
+          isScrolled ? 'pt-2' : 'pt-4 md:pt-6'
         }`}
       >
         <div 
-          className={`relative mx-auto transition-all duration-500 rounded-[2rem] flex items-center justify-between ${
+          className={`relative mx-auto transition-all duration-500 rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-between ${
             isScrolled 
               ? 'max-w-7xl bg-white/95 backdrop-blur-md shadow-2xl shadow-slate-200/40 py-2 px-6 border border-white/20' 
-              : 'max-w-[90rem] bg-white shadow-lg shadow-slate-100/50 py-4 px-8'
+              : 'max-w-[90rem] bg-white shadow-lg shadow-slate-100/50 py-3 md:py-4 px-6 md:px-8'
           }`}
         >
           
-          {/* ==================================================================
-              BÖLÜM 1: MASAÜSTÜ GÖRÜNÜMÜ (DESKTOP)
-              - Sadece 'lg' (Large) ve üzeri ekranlarda görünür (hidden lg:flex)
-              - Logo ORTADA
-          ================================================================== */}
+          {/* DESKTOP GÖRÜNÜMÜ */}
           <div className="hidden lg:flex w-full items-center justify-between">
-            
-            {/* 1. Sol Linkler */}
             <nav className="flex items-center gap-1 w-5/12 justify-start">
               {leftLinks.map((link) => (
                 <Link
@@ -98,29 +86,17 @@ const ResponsiveHeader = () => {
               ))}
             </nav>
 
-            {/* 2. Logo (Desktop Ortada) 
-                - Absolute positioning relative to the container
-                - Translate Y ile aşağı sarkıtıldı
-            */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[25%] z-50">
               <Link to="/" className="relative block group">
-                <div className={`absolute inset-0 bg-red-500 blur-2xl transition-opacity duration-500 rounded-full 
-                    ${isScrolled ? 'opacity-0' : 'opacity-0 group-hover:opacity-20'}`}
-                ></div>
                 <img
                   src={Logo}
                   alt="Öncü Spor"
                   className={`transition-all duration-500 ease-in-out object-contain drop-shadow-md 
-                    ${isScrolled 
-                      ? 'h-30'  // Scroll edildiğinde Desktop boyutu
-                      : 'h-36'  // En tepedeyken Desktop boyutu (Büyük)
-                    }
-                  `}
+                    ${isScrolled ? 'h-24' : 'h-32'}`}
                 />
               </Link>
             </div>
 
-            {/* 3. Sağ Linkler */}
             <nav className="flex items-center gap-1 w-5/12 justify-end">
               {rightLinks.map((link) => (
                 <Link
@@ -141,10 +117,10 @@ const ResponsiveHeader = () => {
               
               <Link
                 to="/ogrenci-kayit"
-                className={`ml-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 shadow-lg transform hover:-translate-y-0.5 ${
+                className={`ml-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 shadow-lg ${
                   isScrolled 
-                  ? 'bg-red-600 text-white hover:bg-slate-900 hover:shadow-slate-500/30' 
-                  : 'bg-slate-900 text-white hover:bg-red-600 hover:shadow-red-500/30'
+                  ? 'bg-red-600 text-white hover:bg-slate-900' 
+                  : 'bg-slate-900 text-white hover:bg-red-600'
                 }`}
               >
                 <UserPlus size={16} />
@@ -153,106 +129,82 @@ const ResponsiveHeader = () => {
             </nav>
           </div>
 
-          {/* ==================================================================
-              BÖLÜM 2: MOBİL & TABLET GÖRÜNÜMÜ
-              - 'lg' altındaki ekranlarda görünür (flex lg:hidden)
-              - Logo SOLDA
-          ================================================================== */}
-          <div className="flex lg:hidden w-full items-center justify-between h-12"> {/* h-12 ile minimum yükseklik verdik */}
-            
-            {/* 1. Logo (Mobil Solda) 
-                - Absolute positioning
-                - left-0 ile sola yaslı (biraz marginli gözüksün diye container padding'i zaten var)
-            */}
-            <div className="absolute left-1/20 top-1/2 -translate-y-[35%] z-50">
+          {/* MOBİL GÖRÜNÜMÜ - Yükseklik Optimize Edildi */}
+          <div className="flex lg:hidden w-full items-center justify-between h-10">
+            <div className="absolute left-0 top-1/2 -translate-y-[40%] z-50">
                <Link to="/" className="relative block">
                  <img
                   src={Logo}
                   alt="Öncü Spor"
                   className={`transition-all duration-500 ease-in-out object-contain drop-shadow-md 
-                    ${isScrolled 
-                      ? 'h-23'  // Scroll edildiğinde Mobil boyutu
-                      : 'h-28'  // En tepedeyken Mobil boyutu (Büyük)
-                    }
-                  `}
+                    ${isScrolled ? 'h-16' : 'h-20'}`}
                 />
                </Link>
             </div>
 
-            {/* 2. Hamburger Menü (Sağda) */}
             <div className="ml-auto">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2.5 bg-slate-50 text-slate-800 rounded-xl hover:bg-red-50 hover:text-red-600 transition-colors shadow-sm"
+                className="p-2 bg-slate-50 text-slate-800 rounded-xl shadow-sm"
               >
-                <Menu size={24} />
+                <Menu size={22} />
               </button>
             </div>
           </div>
-
         </div>
       </header>
 
-      {/* ==================================================================
-          MOBİL MENÜ OVERLAY (Ortak)
-      ================================================================== */}
+      {/* MOBİL MENÜ OVERLAY */}
       <div 
         className={`fixed inset-0 z-[60] bg-white transition-all duration-500 ease-in-out lg:hidden flex flex-col ${
           isMobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'
         }`}
       >
-        {/* Dekoratif Efektler */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-red-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 opacity-50"></div>
-
-        {/* Mobil Header (Logo ve Kapat Butonu) */}
-        <div className="flex items-center justify-between p-6 relative z-10">
-            <img src={Logo} alt="Logo" className="h-14 w-auto drop-shadow-sm" />
+        <div className="flex items-center justify-between p-4 relative z-10 border-b border-slate-50">
+            <img src={Logo} alt="Logo" className="h-10 w-auto" />
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-12 h-12 flex items-center justify-center bg-slate-50 rounded-full text-slate-500 hover:bg-red-50 hover:text-red-600 transition-colors shadow-sm"
+              className="w-10 h-10 flex items-center justify-center bg-slate-50 rounded-full text-slate-500"
             >
-                <X size={24} />
+                <X size={20} />
             </button>
         </div>
 
-        {/* Linkler Listesi */}
         <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
-            <div className="space-y-3">
+            <div className="space-y-2">
                 {[...leftLinks, ...rightLinks].map((link, index) => (
                     <Link
                         key={index}
                         to={link.path}
-                        className={`flex items-center justify-between p-4 rounded-2xl transition-all duration-300 group ${
+                        className={`flex items-center justify-between p-3.5 rounded-2xl transition-all ${
                             isActive(link.path) 
-                            ? 'bg-red-50 text-red-600 border border-red-100 shadow-sm' 
-                            : 'bg-white border border-slate-100 text-slate-600 hover:border-slate-200 hover:shadow-md'
+                            ? 'bg-red-50 text-red-600 border border-red-100' 
+                            : 'bg-white border border-slate-100 text-slate-600'
                         }`}
                     >
-                        <div className="flex items-center gap-4">
-                            <div className={`p-2.5 rounded-xl ${isActive(link.path) ? 'bg-white' : 'bg-slate-50 group-hover:bg-slate-100'}`}>
+                        <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-xl ${isActive(link.path) ? 'bg-white' : 'bg-slate-50'}`}>
                                 {link.icon}
                             </div>
-                            <span className="text-lg font-bold">{link.name}</span>
+                            <span className="text-base font-bold">{link.name}</span>
                         </div>
-                        <ChevronRight size={20} className={`opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all ${isActive(link.path) ? 'opacity-100 translate-x-0' : ''}`} />
+                        <ChevronRight size={18} />
                     </Link>
                 ))}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6">
                 <Link
                     to="/ogrenci-kayit"
-                    className="flex items-center justify-center gap-3 w-full py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl text-lg font-bold shadow-xl shadow-slate-200 hover:scale-[1.02] transition-transform"
+                    className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg"
                 >
-                    <UserPlus size={22} />
+                    <UserPlus size={20} />
                     Öğrenci Kaydı Oluştur
                 </Link>
             </div>
         </div>
 
-        {/* Footer */}
-        <div className="p-8 bg-slate-50 relative z-10">
+        <div className="p-6 bg-slate-50 relative z-10">
             <div className="flex justify-center gap-4 mb-4">
                 {socialLinks.map((social, idx) => (
                     <a
@@ -260,14 +212,14 @@ const ResponsiveHeader = () => {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 flex items-center justify-center bg-white rounded-full text-slate-400 hover:text-red-600 hover:shadow-md transition-all border border-slate-200"
+                        className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-400 border border-slate-200"
                     >
                         {social.icon}
                     </a>
                 ))}
             </div>
-            <p className="text-center text-xs font-bold text-slate-300 tracking-[0.2em] uppercase">
-                Öncü Spor Kulübü © 2025
+            <p className="text-center text-[10px] font-bold text-slate-300 tracking-widest uppercase">
+                Öncü Spor Kulübü © 2026
             </p>
         </div>
       </div>

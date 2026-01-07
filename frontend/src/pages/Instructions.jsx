@@ -15,7 +15,7 @@ import {
 const Instructions = () => {
   const [searchTerm, setSearchTerm] = useState('');
   
-  const [talimatnameler] = useState([
+ const [talimatnameler] = useState([
     {
       id: 1,
       title: "Masa Tenisi",
@@ -46,8 +46,8 @@ const Instructions = () => {
     {
       id: 4,
       title: "Badminton",
-      icon: "badminton", // İkon güncellendi
-      color: "text-blue-500", // Mavi renk verildi (Gökyüzü/Hafiflik)
+      icon: "badminton",
+      color: "text-blue-500",
       bg: "bg-blue-50",
       file: "BADMİNTON TALİMATNAMESİ-1.pdf",
       description: "Kort ölçüleri, raket ve tüy top standartları, servis atış kuralları, puanlama sistemi ve setlerin işleyişi."
@@ -55,8 +55,8 @@ const Instructions = () => {
     {
       id: 5,
       title: "Mangala",
-      icon: "mangala", // İkon güncellendi
-      color: "text-purple-600", // Mor renk verildi (Zeka/Strateji)
+      icon: "mangala",
+      color: "text-purple-600",
       bg: "bg-purple-50",
       file: "Mangala Talimatnamesi.pdf",
       description: "Geleneksel Türk zeka oyunu Mangala'nın taş dağıtma kuralları, kuyu stratejileri ve oyun bitirme kriterleri."
@@ -64,11 +64,29 @@ const Instructions = () => {
     {
       id: 6,
       title: "Karate",
-      icon: "karate", // İkon güncellendi
-      color: "text-slate-700", // Koyu Gri/Siyah renk verildi (Disiplin/Kuşak)
+      icon: "karate",
+      color: "text-slate-700",
       bg: "bg-slate-100",
       file: "Karate Talimatnamesi-1.pdf",
       description: "Kata ve Kumite disiplinlerinin teknik kuralları, tatami yerleşimi, yasaklı hareketler ve hakem komutları."
+    },
+    {
+      id: 7,
+      title: "Dart",
+      icon: "dart",
+      color: "text-emerald-600",
+      bg: "bg-emerald-50",
+      file: "SPOROYUNLARIDARTTALİMATNAMESİ.pdf",
+      description: "Dart tahtası standartları, atış mesafeleri, oyun formatları (501/301) ve teknik kural detayları."
+    },
+    {
+      id: 8,
+      title: "Bilek Güreşi",
+      icon: "armwrestling",
+      color: "text-amber-700",
+      bg: "bg-amber-50",
+      file: "BİLEKGÜREŞİTALİMATNAMESİ.pdf",
+      description: "Masa standartları, sıkletler, hakem komutları, faul durumları ve galibiyet kriterleri."
     }
   ]);
 
@@ -88,19 +106,16 @@ const Instructions = () => {
     }
   };
 
-  const getIcon = (iconName, className) => {
+const getIcon = (iconName, className) => {
     switch (iconName.toLowerCase()) {
-      // Mevcutlar
       case 'tennis': return <Activity className={className} />;
       case 'combat': return <Swords className={className} />;
       case 'chess': return <Crown className={className} />;
-      
-      // YENİ EKLENENLER
-      case 'badminton': return <Activity className={className} />; // Tenis ile benzer (Hareket)
-      case 'mangala': return <Target className={className} />; // Strateji/Hedef (Satrançtan farklı olsun diye)
-      case 'karate': return <Swords className={className} />; // Dövüş sporu (Combat ile aynı ikon)
-
-      // Diğerleri
+      case 'badminton': return <Activity className={className} />;
+      case 'mangala': return <Target className={className} />;
+      case 'karate': return <Swords className={className} />;
+      case 'dart': return <Target className={className} />;
+      case 'armwrestling': return <Dumbbell className={className} />;
       case 'archery': return <Target className={className} />; 
       case 'football': return <Trophy className={className} />;
       case 'volleyball': return <Medal className={className} />;
