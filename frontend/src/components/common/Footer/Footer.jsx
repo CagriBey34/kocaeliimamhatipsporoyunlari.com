@@ -166,16 +166,16 @@ const Footer = () => {
                 {/* E-Posta */}
                 <a
                   href="mailto:oncugeclikvespor@gmail.com"
-                  className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group"
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group min-w-0"
                 >
-                  <div className="w-10 h-10 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 group-hover:bg-yellow-600 group-hover:text-white transition-colors shrink-0">
                     <Mail size={20} />
                   </div>
-                  <div>
+                  <div className="min-w-0"> {/* Taşmayı engellemek için önemli */}
                     <span className="block text-xs text-slate-500">
                       E-Posta
                     </span>
-                    <span className="text-slate-300 font-bold group-hover:text-white text-sm">
+                    <span className="text-slate-300 font-bold group-hover:text-white text-[13px] sm:text-sm break-all">
                       oncugeclikvespor@gmail.com
                     </span>
                   </div>
