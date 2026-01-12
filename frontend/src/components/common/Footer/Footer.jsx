@@ -176,7 +176,7 @@ const Footer = () => {
                       E-Posta
                     </span>
                     <span className="text-slate-300 font-bold group-hover:text-white text-sm">
-                      bilgi@oncuspor.com
+                      oncugeclikvespor@gmail.com
                     </span>
                   </div>
                 </a>
