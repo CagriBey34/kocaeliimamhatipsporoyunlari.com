@@ -26,6 +26,8 @@ const allSportsConfig = [
   { id: 'taekwondo', title: 'Taekwondo', icon: '🥋' },
   { id: 'tableTennis', title: 'Masa Tenisi', icon: '🏓' },
   { id: 'dart', title: 'Dart', icon: '🎯' },
+  { id: 'mangala', title: 'Mangala', icon: '🎲' },
+  { id: 'karate', title: 'Karate', icon: '🥊' },
   { id: 'wrestling', title: 'Bilek Güreşi', icon: '💪' },
   { id: 'gures', title: 'Güreş', icon: '🤼' },
   { id: 'basketbol', title: '3x3 Basketbol', icon: '🏀' },

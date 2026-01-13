@@ -217,5 +217,154 @@ export const data2025 = [
 
   { rank: "1", name: "", school: "M. EMİN SARAÇ İHO", category: "TAKIM YILDIZ ERKEKLER", isTeam: true, sport: "chess" },
   { rank: "2", name: "", school: "BEYOĞLU AİHL-İHO", category: "TAKIM YILDIZ ERKEKLER", isTeam: true, sport: "chess" },
-  { rank: "3", name: "", school: "ÜMRANİYE FATİH İHO", category: "TAKIM YILDIZ ERKEKLER", isTeam: true, sport: "chess" }
+  { rank: "3", name: "", school: "ÜMRANİYE FATİH İHO", category: "TAKIM YILDIZ ERKEKLER", isTeam: true, sport: "chess" },
+
+
+
+
+
+
+{ rank: "1", name: "BERFİN DALGIÇ", school: "SANCAKTEPE KIZ ANADOLU İMAM HATİP LİSESİ", category: "GENÇ KIZLAR", sport: "dart" },
+{ rank: "2", name: "EZERSÜ TÜRKKAN", school: "ŞEHİT ONBAŞI MURAT ŞENGÖZ ANADOLU İMAM HATİP LİSESİ", category: "GENÇ KIZLAR", sport: "dart" },
+{ rank: "3", name: "ECRİN TAŞCI", school: "YAŞAR SADİYE CİMİLLİ KIZ ANADOLU İMAM HATİP LİSESİ", category: "GENÇ KIZLAR", sport: "dart" },
+{ rank: "4", name: "ELİF POLAT", school: "ŞEHİT ONBAŞI MURAT ŞENGÖZ ANADOLU İMAM HATİP LİSESİ", category: "GENÇ KIZLAR", sport: "dart" },
+
+// Bireysel Sıralama - Yıldız Kızlar
+{ rank: "1", name: "HİRA NUR YILDIRIM", school: "ÇAMÇEŞME İMAM HATİP LİSESİ", category: "YILDIZ KIZLAR", sport: "dart" },
+{ rank: "2", name: "DİLASU YALÇINKAYA", school: "SEZAİ KARAKOÇ ANADOLU İMAM HATİP LİSESİ İHO", category: "YILDIZ KIZLAR", sport: "dart" },
+{ rank: "3", name: "TUĞBA ERİŞMİŞ", school: "PROF. DR. OSMAN ÖZTÜRK İMAM HATİP ORTAOKULU", category: "YILDIZ KIZLAR", sport: "dart" },
+{ rank: "4", name: "EFRİNNAZ ERCAN", school: "YILDIZ ALİ İMAM HATİP ORTAOKULU", category: "YILDIZ KIZLAR", sport: "dart" },
+
+// Bireysel Sıralama - Genç Erkekler
+{ rank: "1", name: "ABDUSSAMED YILDIZ", school: "VELİEFENDİ AİHL", category: "GENÇ ERKEKLER", sport: "dart" },
+{ rank: "2", name: "AFŞAN EMİR PENBEĞULLU", school: "KOCA YUSUF İMAM HATİP LİSESİ PROJE OKULU", category: "GENÇ ERKEKLER", sport: "dart" },
+{ rank: "3", name: "OSMAN ESAD KENAN", school: "İTO MARMARA AİHL", category: "GENÇ ERKEKLER", sport: "dart" },
+{ rank: "4", name: "MUHAMMED TALHA YILDIZ", school: "VELİEFENDİ AİHL", category: "GENÇ ERKEKLER", sport: "dart" },
+
+// Bireysel Sıralama - Yıldız Erkekler
+{ rank: "1", name: "FURKAN DÖNE", school: "ÇAMÇEŞME İHO", category: "YILDIZ ERKEKLER", sport: "dart" },
+{ rank: "2", name: "NECMEDDİN TIRYAKI", school: "MUSTAFA VASİF KARSLIGİL İMAM HATİP ORTAOKULU", category: "YILDIZ ERKEKLER", sport: "dart" },
+{ rank: "3", name: "HAMZA AKKILIÇ", school: "TOKİ SEYİTNİZAM ŞEHİT SEMİH BALABAN İHO", category: "YILDIZ ERKEKLER", sport: "dart" },
+{ rank: "4", name: "ÖMER SAİD YAVUZ", school: "MUSTAFA VASİF KARSLIGİL İMAM HATİP ORTAOKULU", category: "YILDIZ ERKEKLER", sport: "dart" },
+
+
+
+// Bireysel Sıralama - Genç Kızlar
+{ rank: "1", name: "ZEHRA BEGÜM KARTAL", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "GENÇ KIZLAR", sport: "badminton" },
+{ rank: "2", name: "İREM FENDOĞLU", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "GENÇ KIZLAR", sport: "badminton" },
+{ rank: "3", name: "ELİF SULTAN TOPRAK", school: "KARTAL AİHL", category: "GENÇ KIZLAR", sport: "badminton" },
+{ rank: "4", name: "MELİSA BERRA SOYAÇIKGÖZ", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "GENÇ KIZLAR", sport: "badminton" },
+
+// Bireysel Sıralama - Yıldız Kızlar
+{ rank: "1", name: "BERFİN NUR ÖZCAN", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "YILDIZ KIZLAR", sport: "badminton" },
+{ rank: "2", name: "ZEYNEP ALTAN", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "YILDIZ KIZLAR", sport: "badminton" },
+{ rank: "3", name: "NİL AZRA ÇAKIR", school: "ŞEHİT ADİL BÜYÜKCENGİZ KIZ AİHL", category: "YILDIZ KIZLAR", sport: "badminton" },
+{ rank: "4", name: "ZEYNEP SERRA ARSLAN", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "YILDIZ KIZLAR", sport: "badminton" },
+
+// Bireysel Sıralama - Genç Erkekler
+{ rank: "1", name: "MEVLÜT BERAT BAŞ", school: "GAZİOSMANPAŞA AİHL", category: "GENÇ ERKEKLER", sport: "badminton" },
+{ rank: "2", name: "ÖMER TAHA YILDIRIM", school: "KOCA YUSUF AİHL", category: "GENÇ ERKEKLER", sport: "badminton" },
+{ rank: "3", name: "KAYRA BIÇAKCI", school: "KOCA YUSUF AİHL", category: "GENÇ ERKEKLER", sport: "badminton" },
+{ rank: "4", name: "HAFIZH SURYA RABBANİ", school: "UFSM AİHL", category: "GENÇ ERKEKLER", sport: "badminton" },
+
+// Bireysel Sıralama - Yıldız Erkekler
+{ rank: "1", name: "AMMAR KHAN", school: "MALTEPE SEZAİ KARAKOÇ AİHL", category: "YILDIZ ERKEKLER", sport: "badminton" },
+{ rank: "2", name: "MUHAMMET EMİN AKAN", school: "MALTEPE SEZAİ KARAKOÇ AİHL", category: "YILDIZ ERKEKLER", sport: "badminton" },
+{ rank: "3", name: "MİRAÇ TAHA KAÇMAZ", school: "MALTEPE SEZAİ KARAKOÇ AİHL", category: "YILDIZ ERKEKLER", sport: "badminton" },
+{ rank: "4", name: "MERTCAN ADIGÜZEL", school: "KAZIM KARABEKİR İHO", category: "YILDIZ ERKEKLER", sport: "badminton" },
+
+
+// -----------------------------------------------------------
+// MANGALA
+// -----------------------------------------------------------
+// Bireysel Sıralama - Genç Kızlar
+{ rank: "1", name: "VİLDAN KULAK", school: "HASBAHÇE KIZ AİHL", category: "GENÇ KIZLAR", sport: "mangala" },
+{ rank: "2", name: "ELA MUHAMMED", school: "ŞEHİT MUHAMMED AKSU KIZ AİHL", category: "GENÇ KIZLAR", sport: "mangala" },
+{ rank: "3", name: "BEHİYE MUHAMMED", school: "ŞEHİT MUHAMMED AKSU KIZ AİHL", category: "GENÇ KIZLAR", sport: "mangala" },
+{ rank: "4", name: "ELİF FATMA GÜLMEZ", school: "HASBAHÇE KIZ AİHL", category: "GENÇ KIZLAR", sport: "mangala" },
+
+// Bireysel Sıralama - Yıldız Kızlar
+{ rank: "1", name: "ESMA KESKİN", school: "HASBAHÇE KIZ AİHL", category: "YILDIZ KIZLAR", sport: "mangala" },
+{ rank: "2", name: "SÜHELYA SAKA", school: "HASBAHÇE KIZ AİHL", category: "YILDIZ KIZLAR", sport: "mangala" },
+{ rank: "3", name: "BEYZA KARAKAŞ", school: "ŞEHİT MAHİR AYABAK İHO", category: "YILDIZ KIZLAR", sport: "mangala" },
+{ rank: "4", name: "ZEHRA BETÜL MATUR", school: "ŞEHİT ADİL BÜYÜKÇENGİZ AİHL", category: "YILDIZ KIZLAR", sport: "mangala" },
+
+// Bireysel Sıralama - Genç Erkekler
+{ rank: "1", name: "MUHAMMED TALHA BAŞAR", school: "UFSM AİHL", category: "GENÇ ERKEKLER", sport: "mangala" },
+{ rank: "2", name: "MUHAMMET FURKAN KORKMAZ", school: "EKREM CEVAHİR A.İ.H.L.", category: "GENÇ ERKEKLER", sport: "mangala" },
+{ rank: "3", name: "ÖMER SEFA KAYA", school: "KARTAL AİHL", category: "GENÇ ERKEKLER", sport: "mangala" },
+{ rank: "4", name: "MUSTAFA EMİR KÖSE", school: "KARTAL AİHL", category: "GENÇ ERKEKLER", sport: "mangala" },
+
+// Bireysel Sıralama - Yıldız Erkekler
+{ rank: "1", name: "AYHAM HATİP", school: "ORUÇ REİS AİHL", category: "YILDIZ ERKEKLER", sport: "mangala" },
+{ rank: "2", name: "ALİ TURAN KARGIDANOĞLU", school: "BEYOĞLU AİHL", category: "YILDIZ ERKEKLER", sport: "mangala" },
+{ rank: "3", name: "MUHAMMED TALHA DEMİR", school: "ŞEHİT MAHİR AYABAK İHO", category: "YILDIZ ERKEKLER", sport: "mangala" },
+{ rank: "4", name: "NİZAR REYYAN YİĞİTOĞLU", school: "ŞEHİT MAHİR AYABAK İHO", category: "YILDIZ ERKEKLER", sport: "mangala" },
+
+
+
+// -----------------------------------------------------------
+// KARATE
+// -----------------------------------------------------------
+// Yıldız Kızlar
+{ rank: "1", name: "ASLI ÖMEROĞLU", school: "ŞEHİT EROL İNCE KIZ AHL", category: "YILDIZ KIZ", weight: "34 KİLO BAYAN", sport: "karate" },
+{ rank: "2", name: "ŞURANUR ŞAHİN", school: "MOBİL İHO", category: "YILDIZ KIZ", weight: "34 KİLO BAYAN", sport: "karate" },
+{ rank: "3", name: "HİRANUR ÖZCAN", school: "İMAM BUHARİ İHO", category: "YILDIZ KIZ", weight: "34 KİLO BAYAN", sport: "karate" },
+{ rank: "4", name: "ASYA SÜRÜCÜ", school: "MOBİL İHO", category: "YILDIZ KIZ", weight: "34 KİLO BAYAN", sport: "karate" },
+
+{ rank: "1", name: "MERYEM RÜVEYDA TAŞYAR", school: "BÜYÜKÇEKMECE İHO", category: "YILDIZ KIZ", weight: "42 KİLO BAYAN", sport: "karate" },
+{ rank: "2", name: "AYLIN ÖMEROĞLU", school: "TENZİLE ERDOĞAN KAİHL", category: "YILDIZ KIZ", weight: "42 KİLO BAYAN", sport: "karate" },
+{ rank: "3", name: "NİSANUR ALTINOK", school: "İMAM BUHARİ İHO", category: "YILDIZ KIZ", weight: "42 KİLO BAYAN", sport: "karate" },
+{ rank: "4", name: "ZEHRA DÖNE ERKOÇ", school: "AHMET ŞİŞMAN KIZ AİHL", category: "YILDIZ KIZ", weight: "42 KİLO BAYAN", sport: "karate" },
+
+{ rank: "1", name: "FATMA HİLAL KARTALOĞLU", school: "SULTANGAZİ NECİP FAZIL KISAKÜREK İHO", category: "YILDIZ KIZ", weight: "48 KİLO BAYAN", sport: "karate" },
+{ rank: "2", name: "ESMA GÖÇER", school: "SULTANGAZİ NECİP FAZIL KISAKÜREK İHO", category: "YILDIZ KIZ", weight: "48 KİLO BAYAN", sport: "karate" },
+{ rank: "3", name: "RUKİYE ELA ULU", school: "AHMET ŞİŞMAN KIZ AİHL", category: "YILDIZ KIZ", weight: "48 KİLO BAYAN", sport: "karate" },
+{ rank: "4", name: "ZEYNEP HİLAL YENİCE", school: "SULTANGAZİ NECİP FAZIL KISAKÜREK İHO", category: "YILDIZ KIZ", weight: "48 KİLO BAYAN", sport: "karate" },
+
+{ rank: "1", name: "AZRA KARADENİZ", school: "TENZİLE ERDOĞAN KAİHL", category: "YILDIZ KIZ", weight: "48+ KİLO BAYAN", sport: "karate" },
+{ rank: "2", name: "HİLAL KILIÇ", school: "TOKİ GÜNEŞPARK EVLERİ KAİHL", category: "YILDIZ KIZ", weight: "48+ KİLO BAYAN", sport: "karate" },
+{ rank: "3", name: "BEREN KUŞ", school: "ALİYA İZZET BEGOVİÇ KAİHL", category: "YILDIZ KIZ", weight: "48+ KİLO BAYAN", sport: "karate" },
+{ rank: "4", name: "NİSANUR GERÇEK", school: "ŞHT FURKAN DOĞAN İHO", category: "YILDIZ KIZ", weight: "48+ KİLO BAYAN", sport: "karate" },
+
+{ rank: "1", name: "AZRA KARADENİZ", school: "TENZİLE ERDOĞAN KIZ AİHL", category: "YILDIZ KIZ", weight: "AÇIK A BAYAN", sport: "karate" },
+{ rank: "2", name: "BEREN KUŞ", school: "BAYRAMPAŞA ALİYA İZZET BEGOVİÇ KAİHL", category: "YILDIZ KIZ", weight: "AÇIK A BAYAN", sport: "karate" },
+{ rank: "3", name: "MERYEM DAMLA DEMİR", school: "KAĞITHANE KIZ AİHL", category: "YILDIZ KIZ", weight: "AÇIK A BAYAN", sport: "karate" },
+
+{ rank: "1", name: "RÜMEYSA GÜL ŞAHİN", school: "KAZIM KARABEKİR İMAM HATİP", category: "YILDIZ KIZ", weight: "AÇIK B BAYAN", sport: "karate" },
+{ rank: "2", name: "HİLAL KILIÇ", school: "TOKİ GÜNEŞPARK EVLERİ KIZ AİHL", category: "YILDIZ KIZ", weight: "AÇIK B BAYAN", sport: "karate" },
+{ rank: "3", name: "CEMRE NAZ ARICIOĞLU", school: "ŞEHİT MAHİR AYABAK İHO", category: "YILDIZ KIZ", weight: "AÇIK B BAYAN", sport: "karate" },
+{ rank: "4", name: "AZRA KARADENİZ", school: "TENZİLE ERDOĞAN KIZ AİHL", category: "YILDIZ KIZ", weight: "AÇIK B BAYAN", sport: "karate" },
+
+// Yıldız Erkekler
+{ rank: "1", name: "AYAZ YAHYA ERCE", school: "HAMİDİYE İHO", category: "YILDIZ ERKEK", weight: "35 KİLO ERKEK", sport: "karate" },
+{ rank: "2", name: "HARUN REŞİT YANARTAŞ", school: "ASIMİN NESLİ İHO", category: "YILDIZ ERKEK", weight: "35 KİLO ERKEK", sport: "karate" },
+{ rank: "3", name: "İSKENDER TALAT SORAĞMA", school: "ULUSLARARASI KAPTAN AHMET ERDOĞAN AİHL", category: "YILDIZ ERKEK", weight: "35 KİLO ERKEK", sport: "karate" },
+
+{ rank: "1", name: "OUSEMA ALKATEA", school: "KUDRET SARAÇOĞLU İHO", category: "YILDIZ ERKEK", weight: "43 KİLO ERKEK", sport: "karate" },
+{ rank: "2", name: "NECMETTİN ERTÜRK", school: "ASIMİN NESLİ İHO", category: "YILDIZ ERKEK", weight: "43 KİLO ERKEK", sport: "karate" },
+{ rank: "3", name: "ELAND MOHAMMED", school: "ZEKAİ DEDE İHO", category: "YILDIZ ERKEK", weight: "43 KİLO ERKEK", sport: "karate" },
+
+{ rank: "1", name: "RECEP GÜLER", school: "ŞEHİT SERVET ASMAZ İHO", category: "YILDIZ ERKEK", weight: "51 KİLO ERKEK", sport: "karate" },
+{ rank: "2", name: "MUSTAFA ÇUHADAR", school: "DUMLUPINAR İHO", category: "YILDIZ ERKEK", weight: "51 KİLO ERKEK", sport: "karate" },
+{ rank: "3", name: "MUHAMMED SAİD COUSEİN", school: "ULUSLARARASI KAPTAN AHMET ERDOĞAN AİHL", category: "YILDIZ ERKEK", weight: "51 KİLO ERKEK", sport: "karate" },
+{ rank: "4", name: "KEREM BAŞTÜRK", school: "ŞEHİT SERVET ASMAZ İHO", category: "YILDIZ ERKEK", weight: "51 KİLO ERKEK", sport: "karate" },
+
+{ rank: "1", name: "MUHAMMED YASİN AKPINAR", school: "ASIMİN NESLİ İHO", category: "YILDIZ ERKEK", weight: "58 KİLO ERKEK", sport: "karate" },
+{ rank: "2", name: "ABDULLAH YİĞİT OVA", school: "İHSAN NAKİBOĞLU AİHL", category: "YILDIZ ERKEK", weight: "58 KİLO ERKEK", sport: "karate" },
+{ rank: "3", name: "OLVAN MOHAMAD", school: "ZEKAİ DEDE İHO", category: "YILDIZ ERKEK", weight: "58 KİLO ERKEK", sport: "karate" },
+
+{ rank: "1", name: "HALİL İBRAHİM KEÇİCİOĞLU", school: "ZEKAİ DEDE İHO", category: "YILDIZ ERKEK", weight: "58+ KİLO ERKEK", sport: "karate" },
+{ rank: "2", name: "MUSTAFA AYDEMİR", school: "KÜÇÜKMECE YAVUZ SELİM İHO", category: "YILDIZ ERKEK", weight: "58+ KİLO ERKEK", sport: "karate" },
+{ rank: "3", name: "MUHAMMED EFE KESKİN", school: "ULUSLARARASI KAPTAN AHMET ERDOĞAN AİHL", category: "YILDIZ ERKEK", weight: "58+ KİLO ERKEK", sport: "karate" },
+{ rank: "4", name: "AHMED MUSAB ÖZKAN", school: "ASIMİN NESLİ İHO", category: "YILDIZ ERKEK", weight: "58+ KİLO ERKEK", sport: "karate" },
+
+{ rank: "1", name: "HAMZA FATİH AYDIN", school: "ŞEHİT SERVET ASMAZ AİHL", category: "YILDIZ ERKEK", weight: "AÇIK A ERKEK", sport: "karate" },
+{ rank: "2", name: "AHMET KAYRA ERTEM", school: "ŞEHİT SERVET ASMAZ AİHL", category: "YILDIZ ERKEK", weight: "AÇIK A ERKEK", sport: "karate" },
+{ rank: "3", name: "HARUN MUT", school: "ŞEHİT SERVET ASMAZ AİHL", category: "YILDIZ ERKEK", weight: "AÇIK A ERKEK", sport: "karate" },
+{ rank: "4", name: "İBRAHİM SALİH YONEV", school: "ŞEHİT SERVET ASMAZ AİHL", category: "YILDIZ ERKEK", weight: "AÇIK A ERKEK", sport: "karate" },
+
+{ rank: "1", name: "MUSTAFA ÇUHADAR", school: "DUMLUPINAR İHO", category: "YILDIZ ERKEK", weight: "AÇIK B ERKEK", sport: "karate" },
+{ rank: "2", name: "KEREM BAŞTÜRK", school: "ŞEHİT SERVET ASMAZ İHO", category: "YILDIZ ERKEK", weight: "AÇIK B ERKEK", sport: "karate" },
+{ rank: "3", name: "MUHAMMED YASİN AKPINAR", school: "ASIMİN NESLİ İHO", category: "YILDIZ ERKEK", weight: "AÇIK B ERKEK", sport: "karate" },
 ];
