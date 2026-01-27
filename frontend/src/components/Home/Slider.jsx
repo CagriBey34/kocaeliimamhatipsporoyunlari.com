@@ -162,4 +162,4 @@ const CreativeHeroFinal = () => {
 
 export default CreativeHeroFinal;
 
-/* Deneme123 CegariBey34*/
+/* Deneme123 */
