@@ -3,14 +3,14 @@ import { MapPin, Phone, Mail, ArrowRight, ExternalLink } from 'lucide-react';
 
 const Contact = () => {
   // Harita için gerçek embed linki (Adresinize göre)
-  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.597693979879!2d28.94190367655459!3d41.01214097134988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caba25e8729601%3A0x6273410656093680!2sAk%C5%9Femsettin%2C%20%C5%9Eair%20Fuzuli%20Sk.%20No%3A22%2C%2034080%20Fatih%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1703000000000!5m2!1str!2str";
+  const mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.868263562398!2d29.950286399999996!3d40.76492210000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cb45ecda0d5e33%3A0x6e48365e0f890328!2zS29jYWVsaSDDlm5jw7wgR2Vuw6dsaWsgdmUgU3BvciBLdWzDvGLDvA!5e0!3m2!1str!2str!4v1769514043080!5m2!1str!2str";
 
   const contactMethods = [
     {
       id: 'address',
       title: 'Genel Merkez',
-      content: 'Akşemsettin Mh. Şair Fuzuli Sk. No: 22 Fatih - İstanbul',
-      link: 'https://www.google.com/maps?ll=41.015233,28.944325&z=16&t=m&hl=tr&gl=TR&mapclient=embed&q=%C5%9Eair+Fuzuli+Sk.+No:+22/2+Topkap%C4%B1+34080+Fatih/%C4%B0stanbul', // Buraya Google Maps linki koyabilirsiniz
+      content: 'Mehmet Ali Paşa, Bağdat Cd., 41200 İzmit/Kocaeli',
+      link: 'https://maps.app.goo.gl/Th5CyD85iWix7vto8', // Buraya Google Maps linki koyabilirsiniz
       linkText: 'Yol Tarifi Al',
       icon: <MapPin size={24} />,
       color: 'text-red-600',
@@ -21,8 +21,8 @@ const Contact = () => {
     {
       id: 'phone',
       title: 'Telefon',
-      content: '0530 915 92 93',
-      link: 'tel:05309159293',
+      content: '0543 534 14 53',
+      link: 'tel:05435341453',
       linkText: 'Hemen Ara',
       icon: <Phone size={24} />,
       color: 'text-blue-600',

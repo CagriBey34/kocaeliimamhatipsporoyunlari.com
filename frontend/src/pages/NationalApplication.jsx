@@ -1,67 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import { nationalApplicationService } from '../services/nationalApplicationService';
-import { FaCheckCircle, FaTimesCircle, FaPhone, FaInfoCircle } from 'react-icons/fa';
+import { 
+  CheckCircle, 
+  AlertCircle, 
+  Info, 
+  Plus, 
+  Trash2, 
+  School, 
+  User, 
+  Phone, 
+  Trophy, 
+  List,
+  Calendar, 
+  ChevronRight, 
+  ChevronLeft,
+  Loader2,
+  FileText,
+  MapPin
+} from 'lucide-react';
 
 const NationalApplication = () => {
+  // --- STATE YÖNETİMİ ---
+  const [step, setStep] = useState(1);
+  const totalSteps = 4;
+  
   const [formData, setFormData] = useState({
     school_id: '',
     teacher_name: '',
     teacher_phone: '',
     notes: '',
-    categories: []
+    categories: [] // Seçilen branşlar listesi
   });
 
+  // Seçim Stateleri
   const [sportCategories, setSportCategories] = useState({});
-  const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [schools, setSchools] = useState([]);
   
-  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedProvince] = useState('Kocaeli'); // Sabit
   const [selectedDistrict, setSelectedDistrict] = useState('');
   
+  const [selectedSport, setSelectedSport] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  // UI Stateleri
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  const [selectedSport, setSelectedSport] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-
+  // --- VERİ YÜKLEME ---
   useEffect(() => {
     loadInitialData();
   }, []);
 
   const loadInitialData = async () => {
     try {
-      const [categoriesData, provincesData] = await Promise.all([
-        nationalApplicationService.getSportCategories(),
-        nationalApplicationService.getProvinces()
-      ]);
+      const categoriesData = await nationalApplicationService.getSportCategories();
       setSportCategories(categoriesData);
-      setProvinces(provincesData);
+      await loadKocaeliDistricts();
     } catch (err) {
       setError('Veriler yüklenirken bir hata oluştu');
       console.error(err);
     }
   };
 
-  const handleProvinceChange = async (e) => {
-    const province = e.target.value;
-    setSelectedProvince(province);
-    setSelectedDistrict('');
-    setDistricts([]);
-    setSchools([]);
-    setFormData(prev => ({ ...prev, school_id: '' }));
-
-    if (province) {
-      try {
-        const districtsData = await nationalApplicationService.getDistrictsByProvince(province);
-        setDistricts(districtsData);
-      } catch (err) {
-        console.error('İlçeler yüklenirken hata:', err);
-        setError('İlçeler yüklenirken bir hata oluştu');
-      }
+  const loadKocaeliDistricts = async () => {
+    try {
+      const districtsData = await nationalApplicationService.getDistrictsByProvince('Kocaeli');
+      setDistricts(districtsData);
+    } catch (err) {
+      // Fallback
+      setDistricts(['Başiskele', 'Çayırova', 'Darıca', 'Derince', 'Dilovası', 'Gebze', 'Gölcük', 'İzmit', 'Kandıra', 'Karamürsel', 'Kartepe', 'Körfez']);
     }
   };
+
+  // --- HANDLERS ---
 
   const handleDistrictChange = async (e) => {
     const district = e.target.value;
@@ -69,9 +82,9 @@ const NationalApplication = () => {
     setSchools([]);
     setFormData(prev => ({ ...prev, school_id: '' }));
 
-    if (district && selectedProvince) {
+    if (district) {
       try {
-        const schoolsData = await nationalApplicationService.getSchoolsByDistrict(selectedProvince, district);
+        const schoolsData = await nationalApplicationService.getSchoolsByDistrict('Kocaeli', district);
         setSchools(schoolsData);
       } catch (err) {
         console.error('Okullar yüklenirken hata:', err);
@@ -82,16 +95,12 @@ const NationalApplication = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const addCategory = () => {
     if (!selectedSport || !selectedCategory) {
-      setError('Lütfen branş ve kategori seçin');
-      setTimeout(() => setError(''), 3000);
+      showErrorTemporary('Lütfen branş ve kategori seçin');
       return;
     }
 
@@ -100,20 +109,13 @@ const NationalApplication = () => {
     );
 
     if (exists) {
-      setError('Bu kategori zaten eklenmiş');
-      setTimeout(() => setError(''), 3000);
+      showErrorTemporary('Bu kategori zaten eklenmiş');
       return;
     }
 
     setFormData(prev => ({
       ...prev,
-      categories: [
-        ...prev.categories,
-        {
-          sport_branch: selectedSport,
-          age_category: selectedCategory
-        }
-      ]
+      categories: [...prev.categories, { sport_branch: selectedSport, age_category: selectedCategory }]
     }));
 
     setSelectedSport('');
@@ -128,379 +130,449 @@ const NationalApplication = () => {
     }));
   };
 
+  const showErrorTemporary = (msg) => {
+    setError(msg);
+    setTimeout(() => setError(''), 3000);
+  };
+
+  const validateStep = (currentStep) => {
+    setError('');
+    if (currentStep === 1) {
+      if (!selectedDistrict) { showErrorTemporary('Lütfen ilçe seçiniz'); return false; }
+      if (!formData.school_id) { showErrorTemporary('Lütfen okul seçiniz'); return false; }
+    }
+    if (currentStep === 2) {
+      if (!formData.teacher_name) { showErrorTemporary('Öğretmen adı zorunludur'); return false; }
+      if (!formData.teacher_phone || formData.teacher_phone.length < 10) { showErrorTemporary('Geçerli bir telefon giriniz'); return false; }
+    }
+    if (currentStep === 3) {
+      if (formData.categories.length === 0) { showErrorTemporary('En az bir branş/kategori eklemelisiniz'); return false; }
+    }
+    return true;
+  };
+
+  const handleNext = () => {
+    if (validateStep(step)) {
+      setStep(prev => prev + 1);
+    }
+  };
+
+  const handleBack = () => {
+    setStep(prev => prev - 1);
+    setError('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    if (!validateStep(3)) return; // Final check
+
     setLoading(true);
-
-    // Validasyon
-    if (!formData.school_id) {
-      setError('Lütfen okul seçin');
-      setLoading(false);
-      return;
-    }
-
-    if (!formData.teacher_name || !formData.teacher_phone) {
-      setError('Lütfen öğretmen bilgilerini doldurun');
-      setLoading(false);
-      return;
-    }
-
-    if (formData.categories.length === 0) {
-      setError('Lütfen en az bir kategori seçin');
-      setLoading(false);
-      return;
-    }
+    setError('');
 
     try {
       await nationalApplicationService.createApplication(formData);
       setSuccess(true);
-
-      // Sayfayı en üste scroll et
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Formu sıfırla
-      setFormData({
-        school_id: '',
-        teacher_name: '',
-        teacher_phone: '',
-        notes: '',
-        categories: []
-      });
-      setSelectedProvince('');
+      // Reset
+      setFormData({ school_id: '', teacher_name: '', teacher_phone: '', notes: '', categories: [] });
       setSelectedDistrict('');
-      setDistricts([]);
       setSchools([]);
-      setSelectedSport('');
-      setSelectedCategory('');
-
-      // 8 saniye sonra success mesajını kaldır
+      setStep(1);
+      
       setTimeout(() => setSuccess(false), 8000);
     } catch (err) {
       setError(err.error || 'Başvuru gönderilirken bir hata oluştu');
-      console.error(err);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setLoading(false);
     }
   };
 
+  // Seçilen okul adını bulmak için (Özet ekranı için)
+  const getSelectedSchoolName = () => {
+    const school = schools.find(s => s.id.toString() === formData.school_id.toString());
+    return school ? school.kurum_adi : '';
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-red-50 to-gray-100 py-8 sm:py-12 md:py-16 px-4">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8 sm:mb-12 pt-4 sm:pt-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4 relative inline-block">
-            <span className="relative z-10">Türkiye Geneli Başvuru Formu</span>
-            <span className="absolute -bottom-1 sm:-bottom-2 left-0 right-0 h-2 sm:h-3 bg-red-300 opacity-50 z-0"></span>
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-            16. İmam Hatip Spor Oyunları'na katılmak için başvuru yapın
-          </p>
+    <div className="py-40 sm:py-52 bg-[#FDFBF7] relative overflow-hidden font-sans selection:bg-red-100 selection:text-red-900 min-h-screen">
+      
+      {/* --- ARKA PLAN EFEKTLERİ --- */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute top-0 left-1/4 w-px h-full bg-slate-200/60"></div>
+        <div className="absolute top-0 left-2/4 w-px h-full bg-slate-200/60"></div>
+        <div className="absolute top-0 left-3/4 w-px h-full bg-slate-200/60"></div>
+      </div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-600/5 rounded-full blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none translate-x-1/2 translate-y-1/2"></div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-5xl">
+        
+        {/* --- BAŞLIK --- */}
+        <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-[0.9] mb-4">
+                Kocaeli<br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Başvuru Formu.</span>
+            </h1>
+            <p className="text-slate-500 text-lg font-medium max-w-2xl mx-auto">
+                16. İmam Hatip Spor Oyunları Kocaeli kayıt işlemleri.
+            </p>
         </div>
 
-        {/* Info Box - Güncelleme Bilgisi */}
-        <div className="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm">
-          <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
-            <div className="flex-shrink-0">
-              <FaInfoCircle className="text-2xl sm:text-3xl text-blue-500" />
+        {/* --- BİLGİ KUTUSU --- */}
+        <div className="bg-blue-50/50 backdrop-blur-sm border border-blue-100 rounded-[1.5rem] p-6 mb-8 flex items-start gap-4 shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                <Info size={20} />
             </div>
-            <div className="flex-1">
-              <h3 className="text-base sm:text-lg font-semibold text-blue-900 mb-2">Önemli Bilgilendirme</h3>
-              <p className="text-sm sm:text-base text-blue-800 mb-3">
-                - Başvurunuzu tamamladıktan sonra herhangi bir güncelleme veya değişiklik yapmak isterseniz,
-                lütfen bizimle iletişime geçin.
-              </p>
-
-              <p className="text-sm sm:text-base text-red-800 mb-3">
-                - Başvuru formu yalnızca sorumlu hocamız tarafından doldurulmalıdır. Öğrencilerin bireysel başvuru yapmaları kesinlikle yasaktır.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 text-sm sm:text-base">
-                <a
-                  href="tel:+905309159293"
-                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  <FaPhone className="text-sm" />
-                  <span>0530 915 92 93</span>
-                </a>
-                <a
-                  href="mailto:oncugeclikvespor@gmail.com"
-                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                  <span className="break-all">oncugeclikvespor@gmail.com</span>
-                </a>
-              </div>
+            <div>
+                <h3 className="text-blue-900 font-bold mb-2">Önemli Bilgilendirme</h3>
+                <ul className="text-sm text-blue-800 space-y-1">
+                    <li>Bu form sadece <span className="font-bold">Kocaeli İli</span> okulları içindir.</li>
+                    <li>Her kayıt formunda sadece bir branş için öğrenci kaydedebilirsiniz.</li>
+                    <li>Farklı branşlar için işlemi tekrarlayınız.</li>
+                </ul>
             </div>
-          </div>
         </div>
 
-        {/* Success Message */}
+        {/* --- BAŞARI MESAJI --- */}
         {success && (
-          <div className="bg-green-50 border-l-4 border-green-400 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 shadow-lg animate-fade-in">
-            <div className="flex items-start gap-3 sm:gap-4">
-              <FaCheckCircle className="text-2xl sm:text-3xl text-green-500 flex-shrink-0 mt-1" />
-              <div className="flex-1">
-                <h3 className="text-base sm:text-lg font-semibold text-green-800 mb-1 sm:mb-2">Başvurunuz Başarıyla Alındı!</h3>
-                <p className="text-sm sm:text-base text-green-700 mb-2">
-                  Başvurunuz sistemimize kaydedildi. En kısa sürede sizinle iletişime geçeceğiz.
+          <div className="bg-green-50/50 border border-green-100 rounded-[1.5rem] p-6 mb-8 flex items-start gap-4 shadow-lg shadow-green-100/50 animate-fadeIn">
+            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+                <CheckCircle size={20} />
+            </div>
+            <div>
+                <h3 className="text-green-900 font-bold mb-1">Başvurunuz Alındı!</h3>
+                <p className="text-sm text-green-800">
+                  Kaydınız başarıyla sistemimize iletilmiştir. En kısa sürede sizinle iletişime geçilecektir.
                 </p>
-                <p className="text-xs sm:text-sm text-green-600">
-                  Herhangi bir sorunuz varsa yukarıdaki iletişim bilgilerinden bize ulaşabilirsiniz.
-                </p>
-              </div>
             </div>
           </div>
         )}
 
-        {/* Error Message */}
+        {/* --- HATA MESAJI --- */}
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-400 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 shadow-lg animate-fade-in">
-            <div className="flex items-start gap-3 sm:gap-4">
-              <FaTimesCircle className="text-2xl sm:text-3xl text-red-500 flex-shrink-0 mt-1" />
-              <div className="flex-1">
-                <h3 className="text-base sm:text-lg font-semibold text-red-800 mb-1">Hata Oluştu</h3>
-                <p className="text-sm sm:text-base text-red-700">{error}</p>
-              </div>
+          <div className="bg-red-50/50 border border-red-100 rounded-[1.5rem] p-6 mb-8 flex items-start gap-4 shadow-lg shadow-red-100/50 animate-fadeIn">
+            <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 shrink-0">
+                <AlertCircle size={20} />
+            </div>
+            <div>
+                <h3 className="text-red-900 font-bold mb-1">Dikkat</h3>
+                <p className="text-sm text-red-800">{error}</p>
             </div>
           </div>
         )}
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
-          {/* Okul Bilgileri */}
-          <div>
-            <div className="flex items-center gap-2 mb-4 sm:mb-6">
-              <div className="w-1 h-6 sm:h-8 bg-red-500 rounded-full"></div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Okul Bilgileri</h2>
+        {/* --- FORM KARTI --- */}
+        <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/40 p-6 md:p-10 relative overflow-hidden">
+          
+          {/* Progress Bar */}
+          <div className="mb-10 relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Adım {step} / {totalSteps}</span>
+              <span className="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded-md">
+                {Math.round((step / totalSteps) * 100)}%
+              </span>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {/* İl Seçimi */}
-              <div>
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  İl <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={selectedProvince}
-                  onChange={handleProvinceChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  required
-                >
-                  <option value="">İl Seçiniz</option>
-                  {provinces.map(province => (
-                    <option key={province} value={province}>{province}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* İlçe Seçimi */}
-              <div>
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  İlçe <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={selectedDistrict}
-                  onChange={handleDistrictChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
-                  required
-                  disabled={!selectedProvince}
-                >
-                  <option value="">{selectedProvince ? 'İlçe Seçin' : 'Önce il seçin'}</option>
-                  {districts.map(district => (
-                    <option key={district} value={district}>{district}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Okul Seçimi */}
-              <div className="sm:col-span-2">
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Okul Adı <span className="text-red-500">*</span>
-                </label>
-                <select
-                  name="school_id"
-                  value={formData.school_id}
-                  onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent disabled:bg-gray-100"
-                  required
-                  disabled={!selectedDistrict}
-                >
-                  <option value="">{selectedDistrict ? 'Okul Seçin' : 'Önce ilçe seçin'}</option>
-                  {schools.map(school => (
-                    <option key={school.id} value={school.id}>
-                      {school.kurum_adi} {school.okul_turu === 'ortaokul' ? '(Ortaokul)' : '(Lise)'}
-                    </option>
-                  ))}
-                </select>
-                {schools.length > 0 && (
-                  <p className="text-xs text-gray-500 mt-1">
-                    {schools.length} okul listelendi
-                  </p>
-                )}
-              </div>
+            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+              <div
+                className="bg-red-600 h-full rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${(step / totalSteps) * 100}%` }}
+              />
             </div>
           </div>
 
-          {/* Öğretmen Bilgileri */}
-          <div>
-            <div className="flex items-center gap-2 mb-4 sm:mb-6">
-              <div className="w-1 h-6 sm:h-8 bg-red-500 rounded-full"></div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Öğretmen Bilgileri</h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <div>
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Ad Soyad <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="teacher_name"
-                  value={formData.teacher_name}
-                  onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="Örn: Ahmet Yılmaz"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Telefon <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="tel"
-                  name="teacher_phone"
-                  value={formData.teacher_phone}
-                  onChange={handleInputChange}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  placeholder="05XXXXXXXXX"
-                  pattern="[0-9]{11}"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Kategori Seçimi */}
-          <div>
-            <div className="flex items-center gap-2 mb-4 sm:mb-6">
-              <div className="w-1 h-6 sm:h-8 bg-red-500 rounded-full"></div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
-                Katılmak İstediğiniz Branşlar <span className="text-red-500">*</span>
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">Branş Seçin</label>
-                  <select
-                    value={selectedSport}
-                    onChange={(e) => {
-                      setSelectedSport(e.target.value);
-                      setSelectedCategory('');
-                    }}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
-                  >
-                    <option value="">Branş Seçin</option>
-                    {Object.keys(sportCategories).map(sport => (
-                      <option key={sport} value={sport}>{sport}</option>
-                    ))}
-                  </select>
+          <div className="relative z-10 min-h-[300px]">
+            
+            {/* ADIM 1: Okul Bilgileri */}
+            {step === 1 && (
+              <div className="animate-fadeIn">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+                      <School size={20} />
+                  </div>
+                  <h2 className="text-2xl font-black text-slate-800">Okul Bilgileri</h2>
                 </div>
 
-                <div>
-                  <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">Kategori Seçin</label>
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all disabled:bg-gray-100"
-                    disabled={!selectedSport}
-                  >
-                    <option value="">{selectedSport ? 'Kategori Seçin' : 'Önce branş seçin'}</option>
-                    {selectedSport && sportCategories[selectedSport]?.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-sm font-bold text-slate-700 ml-1">İl</label>
+                    <div className="w-full px-4 py-3 bg-slate-100 border border-transparent rounded-xl text-slate-500 font-bold flex items-center gap-2">
+                      <MapPin size={18} /> Kocaeli
+                    </div>
+                  </div>
 
-                <button
-                  type="button"
-                  onClick={addCategory}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-3.5 bg-red-500 text-white text-sm sm:text-base font-semibold rounded-lg hover:bg-red-600 active:bg-red-700 transition-colors shadow-md hover:shadow-lg"
-                >
-                  Kategori Ekle
-                </button>
-              </div>
-
-              {/* Seçili Kategoriler */}
-              {formData.categories.length > 0 && (
-                <div className="bg-gradient-to-br from-gray-50 to-red-50 rounded-xl p-4 sm:p-5 border border-gray-200">
-                  <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                    Seçili Kategoriler ({formData.categories.length})
-                  </h3>
                   <div className="space-y-2">
-                    {formData.categories.map((cat, index) => (
-                      <div key={index} className="flex items-center justify-between bg-white p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                        <span className="text-sm sm:text-base text-gray-800 font-medium">
-                          {cat.sport_branch} - <span className="text-gray-600">{cat.age_category}</span>
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => removeCategory(index)}
-                          className="text-red-500 hover:text-red-700 font-semibold text-sm sm:text-base px-2 sm:px-3 py-1 rounded hover:bg-red-50 transition-colors"
-                        >
-                          Kaldır
-                        </button>
-                      </div>
-                    ))}
+                    <label className="text-sm font-bold text-slate-700 ml-1">İlçe *</label>
+                    <select
+                      value={selectedDistrict}
+                      onChange={handleDistrictChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none"
+                    >
+                      <option value="">İlçe Seçiniz</option>
+                      {districts.map(d => <option key={d} value={d}>{d}</option>)}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 ml-1">Okul Adı *</label>
+                    <select
+                      name="school_id"
+                      value={formData.school_id}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none disabled:opacity-50"
+                      disabled={!selectedDistrict}
+                    >
+                      <option value="">{selectedDistrict ? 'Okul Seçiniz' : 'Önce ilçe seçiniz'}</option>
+                      {schools.map(school => (
+                        <option key={school.id} value={school.id}>
+                           {school.kurum_adi} {school.okul_turu === 'ortaokul' ? '(Ortaokul)' : '(Lise)'}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
-              )}
-            </div>
-          </div>
-
-          {/* Notlar */}
-          <div>
-            <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-              Eklemek İstediğiniz Notlar
-            </label>
-            <textarea
-              name="notes"
-              value={formData.notes}
-              onChange={handleInputChange}
-              rows="4"
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all resize-none"
-              placeholder="Varsa belirtmek istediğiniz notları buraya yazabilirsiniz..."
-            ></textarea>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-4 sm:px-6 py-3.5 sm:py-4 bg-gradient-to-r from-red-500 to-red-600 text-white text-base sm:text-lg font-bold rounded-xl hover:from-red-600 hover:to-red-700 active:from-red-700 active:to-red-800 transition-all disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Gönderiliyor...
-              </span>
-            ) : (
-              'Başvuruyu Gönder'
+              </div>
             )}
-          </button>
+
+            {/* ADIM 2: Öğretmen Bilgileri */}
+            {step === 2 && (
+              <div className="animate-fadeIn">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+                      <User size={20} />
+                  </div>
+                  <h2 className="text-2xl font-black text-slate-800">Öğretmen Bilgileri</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 ml-1">Ad Soyad *</label>
+                    <input
+                      type="text"
+                      name="teacher_name"
+                      value={formData.teacher_name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none"
+                      placeholder="Örn: Ahmet Yılmaz"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 ml-1">Telefon *</label>
+                    <div className="relative">
+                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                      <input
+                        type="tel"
+                        name="teacher_phone"
+                        value={formData.teacher_phone}
+                        onChange={handleInputChange}
+                        className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none"
+                        placeholder="05XXXXXXXXX"
+                        maxLength={11}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ADIM 3: Branş Ekleme */}
+            {step === 3 && (
+              <div className="animate-fadeIn space-y-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+                      <Trophy size={20} />
+                  </div>
+                  <h2 className="text-2xl font-black text-slate-800">Branş Seçimi</h2>
+                </div>
+
+                {/* Eklenen Kategoriler Listesi */}
+                {formData.categories.length > 0 && (
+                  <div className="bg-slate-50 rounded-[1.5rem] p-5 border border-slate-100">
+                    <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <CheckCircle size={16} className="text-green-500" />
+                      Eklenen Kategoriler ({formData.categories.length})
+                    </h3>
+                    <div className="space-y-3">
+                      {formData.categories.map((cat, index) => (
+                        <div key={index} className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                          <div className="flex items-center gap-4">
+                              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500 font-bold">
+                                  {index + 1}
+                              </div>
+                              <div>
+                                  <p className="font-bold text-slate-900">
+                                      {cat.sport_branch}
+                                  </p>
+                                  <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+                                      <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100">
+                                          {cat.age_category}
+                                      </span>
+                                  </div>
+                              </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeCategory(index)}
+                            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Kategori Ekleme Alanı */}
+                <div className="bg-white p-6 rounded-[1.5rem] border-2 border-slate-100 shadow-sm">
+                  <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center text-red-600">
+                        <Plus size={18} />
+                    </div>
+                    Listeye Branş Ekle
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-slate-500 uppercase ml-1">Branş</label>
+                      <select
+                        value={selectedSport}
+                        onChange={(e) => { setSelectedSport(e.target.value); setSelectedCategory(''); }}
+                        className="w-full px-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none"
+                      >
+                        <option value="">Branş Seçin</option>
+                        {Object.keys(sportCategories).map(sport => (
+                          <option key={sport} value={sport}>{sport}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-slate-500 uppercase ml-1">Kategori</label>
+                      <select
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        className="w-full px-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none disabled:opacity-50"
+                        disabled={!selectedSport}
+                      >
+                        <option value="">{selectedSport ? 'Kategori Seçin' : 'Önce branş seçin'}</option>
+                        {selectedSport && sportCategories[selectedSport]?.map(cat => (
+                          <option key={cat} value={cat}>{cat}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={addCategory}
+                    className="w-full mt-6 px-4 py-3 bg-slate-900 text-white rounded-xl hover:bg-red-600 transition-colors flex items-center justify-center gap-2 font-bold shadow-lg shadow-slate-200"
+                  >
+                    <Plus size={18} />
+                    Ekle
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ADIM 4: Özet ve Notlar */}
+            {step === 4 && (
+              <div className="animate-fadeIn space-y-6">
+                 <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+                      <FileText size={20} />
+                  </div>
+                  <h2 className="text-2xl font-black text-slate-800">Özet ve Onay</h2>
+                </div>
+
+                {/* Özet Kartı */}
+                <div className="bg-gradient-to-r from-red-600 to-red-500 rounded-[1.5rem] p-6 text-white shadow-xl shadow-red-500/20">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div>
+                      <p className="text-white/60 font-medium mb-1">Okul</p>
+                      <p className="font-bold text-white text-lg leading-tight">{getSelectedSchoolName()}</p>
+                      <p className="text-white/80 text-sm">{selectedDistrict}</p>
+                    </div>
+                    <div>
+                      <p className="text-white/60 font-medium mb-1">Öğretmen</p>
+                      <p className="font-bold text-white text-lg">{formData.teacher_name}</p>
+                      <p className="text-white/80 text-sm">{formData.teacher_phone}</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-white/20">
+                     <p className="text-white/60 font-medium mb-1">Başvurulan Branş Sayısı</p>
+                     <p className="font-bold text-white text-2xl">{formData.categories.length}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-slate-700 ml-1">Eklemek İstediğiniz Notlar</label>
+                  <textarea
+                    name="notes"
+                    value={formData.notes}
+                    onChange={handleInputChange}
+                    rows="4"
+                    className="w-full px-4 py-3 bg-slate-50 border border-transparent rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-red-500/20 focus:border-red-200 transition-all outline-none resize-none"
+                    placeholder="Varsa belirtmek istediğiniz notlar..."
+                  ></textarea>
+                </div>
+              </div>
+            )}
+
+          </div>
+
+          {/* --- NAVİGASYON BUTONLARI --- */}
+          <div className="flex justify-between pt-8 mt-8 border-t border-slate-100 relative z-20">
+            {step > 1 ? (
+                <button
+                type="button"
+                onClick={handleBack}
+                className="px-6 py-3 border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition font-bold flex items-center gap-2"
+              >
+                <ChevronLeft size={18} /> Geri
+              </button>
+            ) : <div></div>}
+           
+            {step < totalSteps ? (
+                <button
+                    type="button"
+                    onClick={handleNext}
+                    className="px-8 py-3 bg-slate-900 text-white rounded-xl hover:bg-red-600 transition font-bold shadow-lg flex items-center gap-2"
+                >
+                    İleri <ChevronRight size={18} />
+                </button>
+            ) : (
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-8 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition font-bold shadow-lg shadow-red-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" /> Gönderiliyor...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle size={18} /> Başvuruyu Tamamla
+                    </>
+                  )}
+                </button>
+            )}
+          </div>
+
         </form>
       </div>
+      
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.4s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import {
   Facebook, Youtube, ChevronRight 
 } from 'lucide-react';
 
-import Logo from './altli_logo.png';
+import Logo from './kocaeli_logo.png';
 
 const ResponsiveHeader = () => {
   const location = useLocation();
@@ -86,13 +86,13 @@ const ResponsiveHeader = () => {
               ))}
             </nav>
 
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[25%] z-50">
+            <div className="absolute left-1/2 top-4/4 -translate-x-1/2 -translate-y-[58%] z-50">
               <Link to="/" className="relative block group">
                 <img
                   src={Logo}
                   alt="Öncü Spor"
                   className={`transition-all duration-500 ease-in-out object-contain drop-shadow-md 
-                    ${isScrolled ? 'h-24' : 'h-32'}`}
+                    ${isScrolled ? 'h-54' : 'h-68'}`}
                 />
               </Link>
             </div>
@@ -116,7 +116,7 @@ const ResponsiveHeader = () => {
               ))}
               
               <Link
-                to="/ogrenci-kayit"
+                to="/turkiye-basvuru"
                 className={`ml-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 shadow-lg ${
                   isScrolled 
                   ? 'bg-red-600 text-white hover:bg-slate-900' 
@@ -195,7 +195,7 @@ const ResponsiveHeader = () => {
 
             <div className="mt-6">
                 <Link
-                    to="/ogrenci-kayit"
+                    to="/turkiye-basvuru"
                     className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg"
                 >
                     <UserPlus size={20} />

@@ -44,6 +44,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=spor_galeri
     command: --default-authentication-plugin=mysql_native_password
     networks:

@@ -8,9 +8,6 @@ const Home = () => {
   return (
     <>
       <Slider />
-      <SportsBranches />
-      <SportsGridLayout />
-      <StatsCounter />
  {/*      <VideoPreview /> */}
     </>
   );
