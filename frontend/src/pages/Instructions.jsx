@@ -27,6 +27,42 @@ const Instructions = () => {
     },
     {
       id: 2,
+      title: "Taekwondo",
+      icon: "combat", 
+      color: "text-red-600",
+      bg: "bg-red-50",
+      file: "taekwondotalimatnamesi.pdf",
+      description: "Taekwondo müsabakalarının düzenlenmesi, müsabık kategorileri, teknik kurallar ve puanlama sistemi."
+    },
+    {
+      id: 3,
+      title: "Satranç",
+      icon: "chess",
+      color: "text-yellow-600",
+      bg: "bg-yellow-50",
+      file: "SATRANÇTALİMATNAMESİ.pdf",
+      description: "Satranç turnuvalarının genel işleyişi, hamle kuralları, süre kontrolleri ve eşlendirme sistemleri."
+    },
+    {
+      id: 4,
+      title: "Badminton",
+      icon: "badminton",
+      color: "text-blue-500",
+      bg: "bg-blue-50",
+      file: "BADMİNTON TALİMATNAMESİ-1.pdf",
+      description: "Kort ölçüleri, raket ve tüy top standartları, servis atış kuralları, puanlama sistemi ve setlerin işleyişi."
+    },
+    {
+      id: 5,
+      title: "Mangala",
+      icon: "mangala",
+      color: "text-purple-600",
+      bg: "bg-purple-50",
+      file: "Mangala Talimatnamesi.pdf",
+      description: "Geleneksel Türk zeka oyunu Mangala'nın taş dağıtma kuralları, kuyu stratejileri ve oyun bitirme kriterleri."
+    },
+    {
+      id: 6,
       title: "Karate",
       icon: "karate",
       color: "text-slate-700",
@@ -35,7 +71,7 @@ const Instructions = () => {
       description: "Kata ve Kumite disiplinlerinin teknik kuralları, tatami yerleşimi, yasaklı hareketler ve hakem komutları."
     },
     {
-      id: 3,
+      id: 7,
       title: "Dart",
       icon: "dart",
       color: "text-emerald-600",
@@ -43,6 +79,15 @@ const Instructions = () => {
       file: "SPOROYUNLARIDARTTALİMATNAMESİ.pdf",
       description: "Dart tahtası standartları, atış mesafeleri, oyun formatları (501/301) ve teknik kural detayları."
     },
+    {
+      id: 8,
+      title: "Bilek Güreşi",
+      icon: "armwrestling",
+      color: "text-amber-700",
+      bg: "bg-amber-50",
+      file: "BİLEKGÜREŞİTALİMATNAMESİ.pdf",
+      description: "Masa standartları, sıkletler, hakem komutları, faul durumları ve galibiyet kriterleri."
+    }
   ]);
 
   const handleDownload = (file) => {

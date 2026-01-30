@@ -92,7 +92,7 @@ const ResponsiveHeader = () => {
                   src={Logo}
                   alt="Öncü Spor"
                   className={`transition-all duration-500 ease-in-out object-contain drop-shadow-md 
-                    ${isScrolled ? 'h-54' : 'h-68'}`}
+                    ${isScrolled ? 'h-24' : 'h-31'}`}
                 />
               </Link>
             </div>

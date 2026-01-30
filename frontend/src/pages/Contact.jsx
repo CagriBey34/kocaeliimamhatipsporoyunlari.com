@@ -33,8 +33,8 @@ const Contact = () => {
     {
       id: 'email',
       title: 'E-Posta',
-      content: 'oncugeclikvespor@gmail.com',
-      link: 'mailto:oncugeclikvespor@gmail.com',
+      content: 'kocaelioncuspor@gmail.com',
+      link: 'mailto:kocaelioncuspor@gmail.com',
       linkText: 'Mail Gönder',
       icon: <Mail size={24} />,
       color: 'text-orange-600',
