@@ -40,12 +40,6 @@ const CreativeHeroFinal = () => {
           
           {/* SOL: METİN VE BUTONLAR */}
           <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-20">
-            
-            {/* Üst Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-100 rounded-full text-red-600 font-bold text-xs tracking-widest uppercase mb-8 animate-[fadeIn_1s_ease-out] shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-              2025 - 2026 Sezonu
-            </div>
 
             {/* Ana Başlık */}
             <h1 className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8">
@@ -61,12 +55,6 @@ const CreativeHeroFinal = () => {
               </span>
             </h1>
 
-            <p className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed max-w-xl mb-10 animate-[fadeIn_1s_ease-out_0.6s_both]">
-            Şampiyonluk sadece kupadan ibaret değildir. 
-            <br/>
-             Sahaya karakterini koy, geleceği inşa et.
-            </p>
-
             {/* Butonlar */}
             <div className="flex flex-col sm:flex-row items-center gap-5 animate-[fadeIn_1s_ease-out_0.8s_both] w-full sm:w-auto">
               
@@ -80,19 +68,8 @@ const CreativeHeroFinal = () => {
                   </span>
               </Link>
 
-              {/* İsteğe bağlı 2. buton (İletişim vb.) */}
-             {/* <button className="px-8 py-4 bg-white border-2 border-slate-200 text-slate-700 font-bold rounded-xl hover:border-red-600 hover:text-red-600 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2">
-                 <MapPin size={20} /> İletişim
-              </button> */}
+             
 
-            </div>
-            
-            {/* Alt İstatistikler / Iconlar */}
-            <div className="mt-12 flex items-center gap-8 text-slate-400 animate-[fadeIn_1s_ease-out_1s_both]">
-                <div className="flex items-center gap-2">
-                    <MapPin size={18} className="text-red-500" />
-                    <span className="text-sm font-semibold text-slate-600">Kocaeli Geneli</span>
-                </div>
             </div>
 
           </div>
@@ -118,12 +95,6 @@ const CreativeHeroFinal = () => {
                    />
                    {/* Resim Üzeri Gradient Overlay */}
                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
-                   
-                   {/* Resim Üzeri Metin (Opsiyonel) */}
-                   <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white z-20">
-                       <p className="font-bold text-lg md:text-2xl tracking-wide">SPORUN VE</p>
-                       <p className="font-black text-2xl md:text-4xl text-red-500">GENÇLİĞİN ÖNCÜSÜ</p>
-                   </div>
                 </div>
 
                 {/* Video Play Butonu (Resmin Üzerinde) */}

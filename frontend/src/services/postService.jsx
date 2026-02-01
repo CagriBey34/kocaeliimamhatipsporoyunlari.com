@@ -1,7 +1,7 @@
 // src/services/postService.js
 import axios from 'axios';
 
-const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:8561/api';
+const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:9561/api';
 
 const api = axios.create({
   baseURL: API_URL,

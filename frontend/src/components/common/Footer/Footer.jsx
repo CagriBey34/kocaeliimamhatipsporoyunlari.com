@@ -138,8 +138,7 @@ const Footer = () => {
                 <div>
                   <h4 className="text-white font-bold mb-1">Genel Merkez</h4>
                   <p className="text-slate-400 text-sm leading-relaxed">
-                    M. Ali Paşa Mah. Bağdat Cad. No: 114/F
-                    <br />İzmit / KOCAELİ
+                    Mehmet Ali Paşa, Bağdat Cd., 41200 İzmit/Kocaeli
                   </p>
                 </div>
               </div>
@@ -147,7 +146,7 @@ const Footer = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Telefon */}
                 <a
-                  href="tel:05494821453"
+                  href="tel:05309159293"
                   className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group"
                 >
                   <div className="w-10 h-10 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -158,14 +157,14 @@ const Footer = () => {
                       Telefon
                     </span>
                     <span className="text-slate-300 font-bold group-hover:text-white">
-                    0 549 482 14 53
+                      0530 915 92 93
                     </span>
                   </div>
                 </a>
 
                 {/* E-Posta */}
                 <a
-                  href="mailto:kocaelioncuspor@gmail.com"
+                  href="mailto:oncugeclikvespor@gmail.com"
                   className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all group min-w-0"
                 >
                   <div className="w-10 h-10 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 group-hover:bg-yellow-600 group-hover:text-white transition-colors shrink-0">
@@ -176,7 +175,7 @@ const Footer = () => {
                       E-Posta
                     </span>
                     <span className="text-slate-300 font-bold group-hover:text-white text-[13px] sm:text-sm break-all">
-                      kocaelioncuspor@gmail.com
+                      oncugeclikvespor@gmail.com
                     </span>
                   </div>
                 </a>
@@ -186,13 +185,21 @@ const Footer = () => {
         </div>
 
         {/* --- ALT ÇİZGİ VE TELİF --- */}
-        <div className="border- border-white/10 pt-0 mt-0 flex flex-col lg:flex-row items-center justify-between gap-4">
-          <div className="text-slate-500 text-sm font-medium">
-            © {currentYear}{" "}
-            <span className="text-white font-bold">Öncü Spor Kulübü</span>. Tüm
-            hakları saklıdır.
-          </div>
-        </div>
+       {/* --- ALT ÇİZGİ VE TELİF --- */}
+<div className="border-t border-white/10 pt-8 mt-8 flex flex-col lg:flex-row items-center justify-between gap-4">
+  <div className="text-slate-500 text-sm font-medium">
+    © {currentYear}{" "}
+    <span className="text-white font-bold">Kocaeli Öncü Spor Kulübü</span>. Tüm
+    hakları saklıdır.
+  </div>
+
+  {/* Yeni Eklenen Bölüm */}
+  <div className="flex items-center gap-2 text-slate-400 text-sm">
+    <p>
+      Bu web sitesi <span className="text-slate-200 font-semibold">ÖNDER İmam Hatipliler Derneği</span> tarafından geliştirilmiştir.
+    </p>
+  </div>
+</div>
       </div>
     </footer>
   );

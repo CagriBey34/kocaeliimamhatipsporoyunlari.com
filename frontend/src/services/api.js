@@ -1,8 +1,8 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:8561/api';
-const ADMIN_URL = import.meta.env.PROD ? '/admin/api' : 'http://localhost:8561/admin';
+const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:9561/api';
+const ADMIN_URL = import.meta.env.PROD ? '/admin' : 'http://localhost:9561/admin';
 
 // API instance oluştur
 const api = axios.create({

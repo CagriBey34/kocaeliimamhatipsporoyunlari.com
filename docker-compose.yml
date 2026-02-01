@@ -1,27 +1,25 @@
 version: '3.8'
 
 services:
-  # Frontend (React)
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "8000:80"  
+      - "9000:80"
     depends_on:
       - backend
     networks:
-      - app-network
+      - kocaeli-network
 
-  # Backend (Node.js)
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - "8561:8561"  # Backend API portu
+      - "9561:9561"
     volumes:
       - ./backend/public:/app/public
     depends_on:
@@ -30,44 +28,41 @@ services:
       - NODE_ENV=production
       - DB_HOST=mysql
       - DB_USER=root
-      - DB_PASSWORD=
-      - DB_NAME=spor_galeri
+      - DB_PASSWORD=kocaeli2024!
+      - DB_NAME=kocaeli_db
     networks:
-      - app-network
+      - kocaeli-network
 
-  # MySQL Veritabanı
   mysql:
     image: mysql:8.0
     restart: unless-stopped
     volumes:
-      - mysql_data:/var/lib/mysql
+      - kocaeli_mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_DATABASE=spor_galeri
+      - MYSQL_ROOT_PASSWORD=kocaeli2024!
+      - MYSQL_DATABASE=kocaeli_db
     command: --default-authentication-plugin=mysql_native_password
     networks:
-      - app-network
+      - kocaeli-network
 
-  # PhpMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: unless-stopped
     ports:
-      - "8068:80"  # PhpMyAdmin için erişim portu
+      - "9068:80"
     environment:
       - PMA_HOST=mysql
       - PMA_PORT=3306
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=kocaeli2024!
     depends_on:
       - mysql
     networks:
-      - app-network
-      
+      - kocaeli-network
+
 networks:
-  app-network:
+  kocaeli-network:
     driver: bridge
 
 volumes:
-  mysql_data:
+  kocaeli_mysql_data:

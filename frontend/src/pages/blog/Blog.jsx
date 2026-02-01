@@ -71,7 +71,7 @@ const Blog = () => {
 
   const getImageUrl = (imagePath) => {
     if (!imagePath) return '/api/placeholder/800/600';
-    const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:8561';
+    const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:9561';
     return `${baseUrl}${imagePath.startsWith('/') ? imagePath : `/${imagePath}`}`;
   };
 
