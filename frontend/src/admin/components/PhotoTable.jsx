@@ -4,7 +4,7 @@ const PhotoTable = ({ photos = [], onDelete, onRefresh }) => {
   const [yearFilter, setYearFilter] = useState('all');
   
   // API URL'yi ortam değişkenlerinden al
-  const API_URL = import.meta.env.PROD ? '' : 'http://localhost:8561';
+  const API_URL = import.meta.env.PROD ? '' : 'http://localhost:9561';
   
   // Photos dizisi tanımlı olduğundan emin ol
   const safePhotos = Array.isArray(photos) ? photos : [];

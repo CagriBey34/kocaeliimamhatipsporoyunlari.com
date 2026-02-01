@@ -37,7 +37,7 @@ const Gallery = () => {
   };
 
   const getPhotoUrl = (photoPath) => {
-    const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:8561';
+    const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:9561';
     // URL kontrolü
     if (!photoPath) return '';
     return `${baseUrl}${photoPath.startsWith('/') ? photoPath : `/${photoPath}`}`;

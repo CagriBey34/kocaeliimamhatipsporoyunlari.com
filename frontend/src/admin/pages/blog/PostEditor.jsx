@@ -104,7 +104,7 @@ const PostEditor = () => {
       });
       
       if (post.thumbnail) {
-        const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:8561';
+        const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:9561';
         setThumbnailPreview(`${baseUrl}${post.thumbnail}`);
       }
       
@@ -128,7 +128,7 @@ const PostEditor = () => {
       setUploadingThumbnail(true);
       const data = await postService.uploadThumbnail(file);
       
-      const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:8561';
+      const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:9561';
       setFormData(prev => ({ ...prev, thumbnail: data.url }));
       setThumbnailPreview(`${baseUrl}${data.url}`);
       setUploadingThumbnail(false);
@@ -147,7 +147,7 @@ const PostEditor = () => {
       setUploadingContent(true);
       const data = await postService.uploadContentImage(file);
       
-      const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:8561';
+      const baseUrl = import.meta.env.PROD ? '' : 'http://localhost:9561';
       const imageUrl = `${baseUrl}${data.url}`;
       
       if (editor) {
