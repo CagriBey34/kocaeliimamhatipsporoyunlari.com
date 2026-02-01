@@ -11,10 +11,10 @@ console.log('🔧 DB Bağlantı Ayarları:', {
 
 // MySQL bağlantı havuzu oluşturma
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
+  host: process.env.DB_HOST || 'mysql',
   port: parseInt(process.env.DB_PORT) || 3307,  
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '123456',
+  password: process.env.DB_PASSWORD || 'kocaeli2024!',
   database: process.env.DB_NAME || 'kocaeli_db',
   waitForConnections: true,
   connectionLimit: 10,
