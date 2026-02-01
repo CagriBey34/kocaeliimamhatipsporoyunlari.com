@@ -199,7 +199,7 @@ const ResponsiveHeader = () => {
                     className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg"
                 >
                     <UserPlus size={20} />
-                    Kaydı Yap
+                    Başvuru
                 </Link>
             </div>
         </div>
