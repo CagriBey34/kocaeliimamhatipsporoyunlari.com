@@ -18,12 +18,16 @@ const postRoutes = require('./routes/postRoutes');
 // Initialize app
 const app = express();
 
+app.set('trust proxy', true);
+
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
 app.use(cors({
   origin: function(origin, callback) {
     const allowedOrigins = [
       /^http:\/\/localhost:\d+$/,
+      'https://imamhatipsporoyunlari.com',
+      'https://www.imamhatipsporoyunlari.com',
       'https://kocaeliimamhatipsporoyunlari.com',
       'https://www.kocaeliimamhatipsporoyunlari.com'
     ];
@@ -56,7 +60,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: true,
-    httpOnly: false,
+    httpOnly: true,
     sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000
   }
