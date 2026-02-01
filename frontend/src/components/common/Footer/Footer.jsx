@@ -138,8 +138,7 @@ const Footer = () => {
                 <div>
                   <h4 className="text-white font-bold mb-1">Genel Merkez</h4>
                   <p className="text-slate-400 text-sm leading-relaxed">
-                    Akşemsettin Mh. Şair Fuzuli Sk. No: 22 <br /> Fatih /
-                    İstanbul
+                    Mehmet Ali Paşa, Bağdat Cd., 41200 İzmit/Kocaeli
                   </p>
                 </div>
               </div>
@@ -186,13 +185,21 @@ const Footer = () => {
         </div>
 
         {/* --- ALT ÇİZGİ VE TELİF --- */}
-        <div className="border- border-white/10 pt-0 mt-0 flex flex-col lg:flex-row items-center justify-between gap-4">
-          <div className="text-slate-500 text-sm font-medium">
-            © {currentYear}{" "}
-            <span className="text-white font-bold">Öncü Spor Kulübü</span>. Tüm
-            hakları saklıdır.
-          </div>
-        </div>
+       {/* --- ALT ÇİZGİ VE TELİF --- */}
+<div className="border-t border-white/10 pt-8 mt-8 flex flex-col lg:flex-row items-center justify-between gap-4">
+  <div className="text-slate-500 text-sm font-medium">
+    © {currentYear}{" "}
+    <span className="text-white font-bold">Kocaeli Öncü Spor Kulübü</span>. Tüm
+    hakları saklıdır.
+  </div>
+
+  {/* Yeni Eklenen Bölüm */}
+  <div className="flex items-center gap-2 text-slate-400 text-sm">
+    <p>
+      Bu web sitesi <span className="text-slate-200 font-semibold">ÖNDER İmam Hatipliler Derneği</span> tarafından geliştirilmiştir.
+    </p>
+  </div>
+</div>
       </div>
     </footer>
   );
