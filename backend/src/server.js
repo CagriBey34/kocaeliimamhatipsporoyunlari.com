@@ -13,7 +13,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes'); 
 const applicationRoutes = require('./routes/applicationRoutes'); 
 const studentRoutes = require('./routes/studentRoutes');
-const postRoutes = require('./routes/postRoutes'); // ✅ YENİ EKLE
+const postRoutes = require('./routes/postRoutes');
 
 // Initialize app
 const app = express();
@@ -22,7 +22,11 @@ app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
 app.use(cors({
   origin: function(origin, callback) {
-    const allowedOrigins = [/^http:\/\/localhost:\d+$/, 'https://imamhatipsporoyunlari.com'];
+    const allowedOrigins = [
+      /^http:\/\/localhost:\d+$/,
+      'https://kocaeliimamhatipsporoyunlari.com',
+      'https://www.kocaeliimamhatipsporoyunlari.com'
+    ];
     
     const originIsAllowed = 
       !origin || 
@@ -51,7 +55,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    secure: false,
+    secure: true,
     httpOnly: false,
     sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000
@@ -67,10 +71,10 @@ app.use('/admin', adminRoutes);
 app.use('/api', tournamentRoutes);
 app.use('/api', applicationRoutes); 
 app.use('/api/students', studentRoutes);
-app.use('/api', postRoutes); // ✅ YENİ EKLE
+app.use('/api', postRoutes);
 
 // Server setup
-const PORT = process.env.PORT || 8561;
+const PORT = process.env.PORT || 9561;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
