@@ -1,84 +1,55 @@
-// src/server.js
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
+// src/config/db.js
+const mysql = require('mysql2/promise');
+require('dotenv').config(); 
 
-dotenv.config({ path: './src/config/.env' });
-
-// Import routes
-const photoRoutes = require('./routes/photoRoutes');
-const adminRoutes = require('./routes/adminRoutes'); 
-const tournamentRoutes = require('./routes/tournamentRoutes'); 
-const applicationRoutes = require('./routes/applicationRoutes'); 
-const studentRoutes = require('./routes/studentRoutes');
-const postRoutes = require('./routes/postRoutes');
-
-// Initialize app
-const app = express();
-
-app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
-
-app.use(cors({
-  origin: function(origin, callback) {
-    const allowedOrigins = [
-      /^http:\/\/localhost:\d+$/,
-      'https://imamhatipsporoyunlari.com',
-      'https://www.imamhatipsporoyunlari.com',
-      'https://kocaeliimamhatipsporoyunlari.com',
-      'https://www.kocaeliimamhatipsporoyunlari.com'
-    ];
-    
-    const originIsAllowed = 
-      !origin || 
-      allowedOrigins.some(allowed => 
-        typeof allowed === 'string' 
-          ? allowed === origin 
-          : allowed.test(origin)
-      );
-    
-    if (originIsAllowed) {
-      callback(null, origin);
-    } else {
-      callback(new Error('CORS policy violation'));
-    }
-  },
-  credentials: true
-}));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Session middleware
-const session = require('express-session');
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'oncü1958*',
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    secure: true,
-    httpOnly: false,
-    sameSite: 'lax',
-    maxAge: 24 * 60 * 60 * 1000
-  }
-}));
-
-// Static files
-app.use(express.static(path.join(__dirname, '../public')));
-
-// Routes
-app.use('/api', photoRoutes);
-app.use('/admin', adminRoutes); 
-app.use('/api', tournamentRoutes);
-app.use('/api', applicationRoutes); 
-app.use('/api/students', studentRoutes);
-app.use('/api', postRoutes);
-
-// Server setup
-const PORT = process.env.PORT || 9561;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+console.log('🔧 DB Bağlantı Ayarları:', {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME
 });
 
-module.exports = app;
+// MySQL bağlantı havuzu oluşturma
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || 'mysql',
+  port: parseInt(process.env.DB_PORT) || 3307,  
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || 'kocaeli2024!',
+  database: process.env.DB_NAME || 'kocaeli_db',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
+
+// Veritabanı bağlantısını test et
+const testConnection = async () => {
+  try {
+    const connection = await pool.getConnection();
+    console.log('✅ MySQL bağlantısı başarılı!');
+    
+    // Hangi veritabanına bağlı?
+    const [dbResult] = await connection.query('SELECT DATABASE() as db');
+    console.log('📊 Aktif veritabanı:', dbResult[0].db);
+    
+    // Tabloları göster
+    const [tables] = await connection.query('SHOW TABLES');
+    console.log('📋 Tablolar:', tables.map(t => Object.values(t)[0]));
+    
+    connection.release();
+    return true;
+  } catch (error) {
+    console.error('❌ MySQL bağlantı hatası:', error.message);
+    console.error('Bağlantı bilgileri:', {
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USER,
+      database: process.env.DB_NAME
+    });
+    return false;
+  }
+};
+
+module.exports = {
+  pool,
+  testConnection
+};
