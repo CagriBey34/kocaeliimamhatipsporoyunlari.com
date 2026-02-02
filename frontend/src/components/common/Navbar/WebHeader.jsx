@@ -116,7 +116,7 @@ const ResponsiveHeader = () => {
               ))}
               
               <Link
-                to="/turkiye-basvuru"
+                to="/kocaeli-basvuru"
                 className={`ml-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 shadow-lg ${
                   isScrolled 
                   ? 'bg-red-600 text-white hover:bg-slate-900' 
@@ -195,7 +195,7 @@ const ResponsiveHeader = () => {
 
             <div className="mt-6">
                 <Link
-                    to="/turkiye-basvuru"
+                    to="/kocaeli-basvuru"
                     className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg"
                 >
                     <UserPlus size={20} />
