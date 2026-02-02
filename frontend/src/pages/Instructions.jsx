@@ -16,7 +16,7 @@ const Instructions = () => {
   const [searchTerm, setSearchTerm] = useState('');
   
  const [talimatnameler] = useState([
-    {
+/*     {
       id: 1,
       title: "Masa Tenisi",
       icon: "tennis",
@@ -87,7 +87,7 @@ const Instructions = () => {
       bg: "bg-amber-50",
       file: "BİLEKGÜREŞİTALİMATNAMESİ.pdf",
       description: "Masa standartları, sıkletler, hakem komutları, faul durumları ve galibiyet kriterleri."
-    }
+    } */
   ]);
 
   const handleDownload = (file) => {

@@ -9,4 +9,15 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/tests/setup.js',  // Küçük harf
+    css: true,
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      'tests/**',
+    ],
+  },
 })
