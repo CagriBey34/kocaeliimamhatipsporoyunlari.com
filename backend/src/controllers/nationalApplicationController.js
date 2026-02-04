@@ -60,13 +60,14 @@ exports.getSportCategories = async (req, res) => {
   try {
     const categories = {
       "Masa Tenisi": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
-      "Satranç": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
+      "Dart": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
       "Karate": ["Yıldız Erkek", "Yıldız Kız"],
       "Voleybol": ["Yıldız Kız", "Genç Kız"],
       "Geleneksel Türk Okçuluğu": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
       "Bocce": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
       "Futsal": ["Yıldız Erkek", "Genç Erkek"],
       "Güreş": ["Genç Erkek"],
+      "Bilek Güreşi": ["Küçük Erkek", "Yıldız Erkek", "Genç Erkek"],
     };
 
     res.json(categories);

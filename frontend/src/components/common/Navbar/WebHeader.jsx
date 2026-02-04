@@ -38,8 +38,8 @@ const ResponsiveHeader = () => {
   const rightLinks = [
     { name: 'Talimatname', path: '/instructions', icon: <FileText size={18} /> },
     { name: 'Turnuva', path: '/turnuva', icon: <Trophy size={18} /> },
-    { name: 'Dereceler', path: '/dereceye-girenler', icon: <Award size={18} /> },
-  ];
+/*     { name: 'Dereceler', path: '/dereceye-girenler', icon: <Award size={18} /> },*/
+  ]; 
 
   const socialLinks = [
     { icon: <Instagram size={20} />, href: 'https://www.instagram.com/oncugenclikspor/' },
