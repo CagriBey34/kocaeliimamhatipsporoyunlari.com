@@ -59,15 +59,16 @@ exports.getSchoolsByDistrict = async (req, res) => {
 exports.getSportCategories = async (req, res) => {
   try {
     const categories = {
-      "Masa Tenisi": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
-      "Dart": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
-      "Karate": ["Yıldız Erkek", "Yıldız Kız"],
-      "Voleybol": ["Yıldız Kız", "Genç Kız"],
-      "Geleneksel Türk Okçuluğu": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
+      "Taekwondo": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Masa Tenisi": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Dart": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Karate": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Voleybol": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Geleneksel Türk Okçuluğu": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
       "Bocce": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
-      "Futsal": ["Yıldız Erkek", "Genç Erkek"],
-      "Güreş": ["Genç Erkek"],
-      "Bilek Güreşi": ["Küçük Erkek", "Yıldız Erkek", "Genç Erkek"],
+      "Futsal": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Güreş": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Bilek Güreşi": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
     };
 
     res.json(categories);
