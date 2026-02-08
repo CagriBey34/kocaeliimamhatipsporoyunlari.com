@@ -220,21 +220,6 @@ const NationalApplication = () => {
             </p>
         </div>
 
-        {/* --- BİLGİ KUTUSU --- */}
-        <div className="bg-blue-50/50 backdrop-blur-sm border border-blue-100 rounded-[1.5rem] p-6 mb-8 flex items-start gap-4 shadow-sm">
-            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                <Info size={20} />
-            </div>
-            <div>
-                <h3 className="text-blue-900 font-bold mb-2">Önemli Bilgilendirme</h3>
-                <ul className="text-sm text-blue-800 space-y-1">
-                    <li>Bu form sadece <span className="font-bold">Kocaeli İli</span> okulları içindir.</li>
-                    <li>Her kayıt formunda sadece bir branş için öğrenci kaydedebilirsiniz.</li>
-                    <li>Farklı branşlar için işlemi tekrarlayınız.</li>
-                </ul>
-            </div>
-        </div>
-
         {/* --- BAŞARI MESAJI --- */}
         {success && (
           <div className="bg-green-50/50 border border-green-100 rounded-[1.5rem] p-6 mb-8 flex items-start gap-4 shadow-lg shadow-green-100/50 animate-fadeIn">

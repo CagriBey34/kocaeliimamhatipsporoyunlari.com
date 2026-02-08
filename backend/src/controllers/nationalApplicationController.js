@@ -17,7 +17,7 @@ exports.getProvinces = async (req, res) => {
 exports.getDistrictsByProvince = async (req, res) => {
   try {
     const { province } = req.query;
-
+    
     if (!province) {
       return res.status(400).json({ error: 'İl parametresi gerekli' });
     }
@@ -26,7 +26,7 @@ exports.getDistrictsByProvince = async (req, res) => {
       'SELECT DISTINCT ilce_adi FROM okullar WHERE il_adi = ? ORDER BY ilce_adi',
       [province]
     );
-
+    
     res.json(districts.map(d => d.ilce_adi));
   } catch (error) {
     console.error('İlçeler alınırken hata:', error);
@@ -38,7 +38,7 @@ exports.getDistrictsByProvince = async (req, res) => {
 exports.getSchoolsByDistrict = async (req, res) => {
   try {
     const { province, district } = req.query;
-
+    
     if (!province || !district) {
       return res.status(400).json({ error: 'İl ve ilçe parametreleri gerekli' });
     }
@@ -47,7 +47,7 @@ exports.getSchoolsByDistrict = async (req, res) => {
       'SELECT id, kurum_adi, kurum_kodu, okul_turu FROM okullar WHERE il_adi = ? AND ilce_adi = ? ORDER BY kurum_adi',
       [province, district]
     );
-
+    
     res.json(schools);
   } catch (error) {
     console.error('Okullar alınırken hata:', error);
@@ -70,7 +70,7 @@ exports.getSportCategories = async (req, res) => {
       "Güreş": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
       "Bilek Güreşi": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
     };
-
+    
     res.json(categories);
   } catch (error) {
     console.error('Kategoriler alınırken hata:', error);
@@ -81,7 +81,7 @@ exports.getSportCategories = async (req, res) => {
 // Yeni başvuru oluştur (Türkiye geneli)
 exports.createNationalApplication = async (req, res) => {
   const connection = await pool.getConnection();
-
+  
   try {
     const { school_id, teacher_name, teacher_phone, notes, categories } = req.body;
 
@@ -100,21 +100,7 @@ exports.createNationalApplication = async (req, res) => {
 
     await connection.beginTransaction();
 
-    // Okul daha önce başvuru yapmış mı kontrol et
-    const [existingApplications] = await connection.query(
-      'SELECT id FROM national_applications WHERE school_id = ?',
-      [school_id]
-    );
-
-    if (existingApplications.length > 0) {
-      await connection.rollback();
-      return res.status(400).json({
-        error: 'Bu okul daha önce başvuru yapmıştır. Her okul sadece bir kez başvuru yapabilir.',
-        existing_application_id: existingApplications[0].id
-      });
-    }
-
-    // Başvuruyu oluştur
+    // Başvuruyu oluştur (tekrar kontrolü kaldırıldı)
     const [applicationResult] = await connection.query(
       'INSERT INTO national_applications (school_id, teacher_name, teacher_phone, notes) VALUES (?, ?, ?, ?)',
       [school_id, teacher_name, teacher_phone, notes || null]
@@ -162,7 +148,7 @@ exports.getAllNationalApplications = async (req, res) => {
         o.ilce_adi as district,
         o.okul_turu as school_type,
         GROUP_CONCAT(
-          CONCAT(nac.sport_branch, ' - ', nac.age_category)
+          CONCAT(nac.sport_branch, ' - ', nac.age_category) 
           SEPARATOR ', '
         ) as categories
       FROM national_applications na
@@ -171,7 +157,7 @@ exports.getAllNationalApplications = async (req, res) => {
       GROUP BY na.id
       ORDER BY na.created_at DESC
     `);
-
+    
     res.json(applications);
   } catch (error) {
     console.error('Başvurular alınırken hata:', error);
