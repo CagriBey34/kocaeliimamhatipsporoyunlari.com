@@ -59,16 +59,16 @@ exports.getSchoolsByDistrict = async (req, res) => {
 exports.getSportCategories = async (req, res) => {
   try {
     const categories = {
-      "Taekwondo": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Masa Tenisi": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Dart": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Karate": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Voleybol": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Geleneksel Türk Okçuluğu": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Bocce": ["Yıldız Erkek", "Genç Erkek", "Yıldız Kız", "Genç Kız"],
-      "Futsal": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Güreş": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
-      "Bilek Güreşi": ["Minikler (5.- 6. Sınıf)", "Yıldızlar (7. - 8. Sınıf)", "Gençler (Lise)"],
+      "Taekwondo": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Masa Tenisi": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Dart": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Karate": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Voleybol": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Geleneksel Türk Okçuluğu": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Bocce": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Futsal": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Güreş": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
+      "Bilek Güreşi": ["Minik Erkekler (5.- 6. Sınıf)", "Minik Kızlar (5.- 6. Sınıf)", "Yıldız Erkekler (7. - 8. Sınıf)", "Yıldız Kızlar (7. - 8. Sınıf)", "Genç Erkekler (Lise)" , "Genç Kızlar (Lise)"],
     };
     
     res.json(categories);
