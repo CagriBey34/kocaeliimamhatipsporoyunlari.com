@@ -44,7 +44,7 @@ const AppRoutes = () => {
         <Route path="/turnuva" element={<Tournament />} />
         <Route path="/turnuva-final-asamasi" element={<TournamentFinal />} />
         <Route path="/basvuru" element={<Application />} />
-        <Route path="/kocaeli-basvuru" element={<NationalApplication />} /> 
+       {/*  <Route path="/kocaeli-basvuru" element={<NationalApplication />} />  */}
         {/* <Route path="/ogrenci-kayit" element={<StudentRegistration />} />  */}
         {/* <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogDetail />} /> */}

@@ -115,7 +115,7 @@ const ResponsiveHeader = () => {
                 </Link>
               ))}
               
-              <Link
+              {/* <Link
                 to="/kocaeli-basvuru"
                 className={`ml-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 shadow-lg ${
                   isScrolled 
@@ -125,7 +125,7 @@ const ResponsiveHeader = () => {
               >
                 <UserPlus size={16} />
                 <span>Başvuru</span>
-              </Link>
+              </Link> */}
             </nav>
           </div>
 
@@ -194,13 +194,13 @@ const ResponsiveHeader = () => {
             </div>
 
             <div className="mt-6">
-                <Link
+              {/*   <Link
                     to="/kocaeli-basvuru"
                     className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 text-white rounded-2xl text-base font-bold shadow-lg"
                 >
                     <UserPlus size={20} />
                     Başvuru
-                </Link>
+                </Link> */}
             </div>
         </div>
 
