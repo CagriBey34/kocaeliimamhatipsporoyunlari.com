@@ -112,7 +112,7 @@ const Tournament = () => {
                         </div>
 
                         {/* Finaller Butonu */}
-                        <a 
+                      {/*   <a 
                             href="/turnuva-final-asamasi"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -120,7 +120,7 @@ const Tournament = () => {
                         >
                             <span>Finaller</span>
                             <Trophy className="w-5 h-5 text-yellow-400 group-hover:scale-110 transition-transform" />
-                        </a>
+                        </a> */}
                     </div>
                 </div>
 
